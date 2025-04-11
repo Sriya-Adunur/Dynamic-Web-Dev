@@ -1,0 +1,22 @@
+{
+  "name": "dynamic-web-dev",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sriya-Adunur/Dynamic-Web-Dev.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sriya-Adunur/Dynamic-Web-Dev/issues"
+  },
+  "homepage": "https://github.com/Sriya-Adunur/Dynamic-Web-Dev#readme",
+  "description": "",
+  "workspaces": [
+      "packages/*"
+  ]
+}
