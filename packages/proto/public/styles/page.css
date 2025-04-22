@@ -1,0 +1,25 @@
+h1 {
+    color: var(--color-header-text);
+    background-color: var(--color-header-background);
+  }
+
+h2 a {
+    color: var(--color-larger-text)
+}
+
+h2 {
+    color: var(--color-smaller-text)
+}
+
+h3, p, ul{
+    color: var(--color-smaller-text)
+}
+
+body{
+    background-color: var(--color-background-page)
+}
+
+p a {
+    color: var(--color-larger-text)
+}
+
