@@ -4,10 +4,18 @@
   <meta charset="UTF-8">
   <link rel="stylesheet" href="/styles/page.css" />
   <link rel="stylesheet" href="/styles/tokens.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
   <title>SeenThat</title>
 </head>
 <body>
-    <h1>SeenThat </h1>
+    <h1>SeenThat <svg class="icon"> <use href="/icons/movies.svg#icon-glasses" />
+    </svg> </h1>
     <section class="movie-images">
         <a href="movies/inception.html">
             <img src="images/inception.jpeg" width="230" height="300"/>
@@ -30,7 +38,11 @@
     </section>
     <nav> 
         <ul>
-            <li><h2><a href="recommendations.html">Get Recommendations</a></h2></li>
+            <li><h2><a href="recommendations.html">Get Recommendations</a> <svg class="icon"> <use href="/icons/movies.svg#icon-video-camera" />
+            </svg> </h2></li>
+            <li><h2><a href="watched.html">My Watched List </a> <svg class="icon">
+                <use href="/icons/movies.svg#icon-video-camera" />
+              </svg></h2> </li>
         </ul>
     </nav>
     <h3>Rate movies you've seen and get new movie suggestions based on your taste!</h3>
