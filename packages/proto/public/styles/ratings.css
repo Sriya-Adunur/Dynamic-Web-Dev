@@ -1,0 +1,65 @@
+
+.movie-card {
+    background-color: #F2EFE5;
+    border-radius: 16px;
+    padding: 4rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+    transition: transform 0.3s;
+  }
+  
+  .movie-card:hover {
+    transform: translateY(-5px);
+  }
+  
+  .rating-panel {
+    background-color: var(--color-background-page);
+    border: 1px solid var(--color-smaller-text);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-top: 2rem;
+  }
+  
+  .rating-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .rating-form label {
+    font-family: "Outfit", sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: black;
+  }
+  
+  .rating-form select {
+    background-color: #F2EFE5;
+    color: var(--color-smaller-text);
+    border: 1px solid var(--color-smaller-text);
+    border-radius: 8px;
+    padding: 0.8rem 1rem;
+    font-family: "Lato", sans-serif;
+    font-size: 1rem;
+    appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='%23aaa' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1.5em;
+    cursor: pointer;
+    transition: border-color 0.3s, background-color 0.3s;
+  }
+  
+  .rating-form select:hover {
+    border-color: var(--color-larger-text);
+    background-color: var(--color-header-background-hover);
+  }
+  
+  .rating-form select:focus {
+    outline: none;
+    border-color: var(--color-larger-text);
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.2);
+  }
+  
