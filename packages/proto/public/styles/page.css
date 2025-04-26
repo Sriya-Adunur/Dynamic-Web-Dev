@@ -16,10 +16,15 @@ h2 {
 
 }
 
-h3, p, ul{
+h3, p, ul {
     color: var(--color-smaller-text);
     font-family: "Lato", sans-serif;
 
+}
+
+a {
+    color: var(--color-larger-text);
+    font-family: "Lato", sans-serif;
 }
 
 body{
@@ -42,5 +47,111 @@ svg.icon {
     vertical-align: top;
     fill: currentColor;
   }
+
+.main-header {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background-color: var(--color-header-background);
+    padding: 5px 20px;
+    height: auto;
+  }
+
+  .movie-images {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 0.5rem; 
+    margin: 1rem;
+  }
+  
+  .movie-images a {
+    display: block;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .movie-images img {
+    width: 200px;
+    height: 300px;
+    border-radius: 8px;
+    object-fit: cover; 
+    display: block;
+  }  
+
+.movie-images section {
+    background: white;
+    padding: 0rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  }
+
+  .navbar {
+    flex: 1;
+}
+
+  
+  .navbar ul {
+    display: flex; 
+    flex-wrap: wrap;
+    gap: 30px;     
+    list-style: none; 
+    margin: 0;
+    padding: 0;
+    justify-content: flex-end;
+  }
+  
+  .navbar ul li a {
+    display: block; /* instead of flex! */
+    text-decoration: none;
+    color: #eee;
+    font-size: 18px;
+    transition: color 0.3s;
+  }
+  
+  .navbar ul li a:hover {
+    color: #ffffff;
+  }
+
+  @media (max-width: 1024px) {
+    .content {
+      grid-template-columns: repeat(8, 1fr);
+      padding: 1.5rem;
+    }
+  
+    .movie-card {
+      grid-column: span 6;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .content {
+      grid-template-columns: repeat(4, 1fr);
+      padding: 1rem;
+    }
+  
+    .movie-card {
+      grid-column: span 4;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .content {
+      display: flex;
+      flex-direction: column;
+      padding: 1rem;
+    }
+  
+    .movie-card {
+      width: 100%;
+      padding: 1rem;
+    }
+  }
+  
+  
+
+
+  
   
 
