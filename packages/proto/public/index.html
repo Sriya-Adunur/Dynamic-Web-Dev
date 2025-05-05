@@ -14,12 +14,45 @@
   <title>SeenThat</title>
 </head>
 <body>
+  <script>
+    const page = document.body;
+  
+    const saved = localStorage.getItem("dark-mode");
+    if (saved === "true") {
+      page.classList.add("dark-mode");
+      const toggle = document.querySelector(".darkmode input");
+      if (toggle) toggle.checked = true;
+    }
+  
+    page.addEventListener("darkmode:toggle", (event) => {
+      const enabled = event.detail.enabled;
+      page.classList.toggle("dark-mode", enabled);
+      localStorage.setItem("dark-mode", enabled);
+    });
+  
+    function relayDarkmodeToggle(event) {
+      event.stopPropagation();
+  
+      const checkbox = event.target;
+      if (checkbox.type !== "checkbox") return;
+  
+      const customEvent = new CustomEvent("darkmode:toggle", {
+        bubbles: true,
+        detail: {
+          enabled: checkbox.checked
+        }
+      });
+  
+      event.currentTarget.dispatchEvent(customEvent);
+    }
+  </script>
     <header class="main-header">
         <div class="logo">
-          <h1>SeenThat 
+          <h1>
             <svg class="icon" aria-hidden="true">
               <use href="/icons/movies.svg#icon-glasses" />
             </svg>
+            SeenThat 
           </h1>
         </div>
     
@@ -31,9 +64,9 @@
             <li><a href="#">Search</a></li> 
           </ul>
         </nav>
-        <label class="darkmode">
+        <label class="darkmode" onchange="relayDarkmodeToggle(event)">
           <input type="checkbox" autocomplete="off" />
-          Dark mode
+          Dark Mode
         </label>
       </header>
     
@@ -56,6 +89,9 @@
         <a href="movies/inception.html">
             <img src="images/thedevilwears.jpeg"/>
         </a> 
+        <a href="movies/inception.html">
+          <img src="images/littlewomen.jpeg"/>
+      </a>
     </section>
     <nav> 
         <ul>

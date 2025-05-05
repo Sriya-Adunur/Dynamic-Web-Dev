@@ -1,5 +1,5 @@
 :root{ 
-    --color-accent: white;
+    --color-accent: #F2EFE5;
     --color-background-page: #F2EFE5;
     --color-larger-text: #aa2923;
     --color-smaller-text: #222222;
@@ -8,3 +8,13 @@
     --color-header-background: #3B5441;
 
 }
+
+body.dark-mode {
+    --color-background-page: #3B5441;
+    --color-accent: black;
+    --color-larger-text: #F2EFE5;
+    --color-smaller-text: #F2EFE5;
+    --color-text: rgb(51 51 51);
+    --color-header-text: #F2EFE5;
+    --color-header-background: #9db1a1;
+  }

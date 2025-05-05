@@ -40,6 +40,10 @@ ul li a {
     color: var(--color-larger-text);
 }
 
+.logo h1 {
+  color: var(--color-accent);
+}
+
 svg.icon {
     display: inline;
     height: 1.7em;
@@ -48,7 +52,7 @@ svg.icon {
     fill: currentColor;
   }
 
-.main-header {
+  .main-header {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
@@ -61,9 +65,9 @@ svg.icon {
   .movie-images {
     display: flex;
     flex-wrap: wrap;
-    justify-content: flex-start;
+    justify-content: stretch;
     gap: 0.5rem; 
-    margin: 1rem;
+    margin: 0.5rem;
   }
   
   .movie-images a {
@@ -73,15 +77,15 @@ svg.icon {
   }
   
   .movie-images img {
-    width: 200px;
+    width: 198px;
     height: 300px;
     border-radius: 8px;
     object-fit: cover; 
     display: block;
   }  
 
-.movie-images section {
-    background: white;
+  .movie-images section {
+    background: var(--color-header-background);
     padding: 0rem;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
@@ -89,6 +93,15 @@ svg.icon {
 
   .navbar {
     flex: 1;
+}
+
+  .darkmode {
+  font-family: "Lato", sans-serif;
+  color: var(--color-accent);
+  font-size: 18px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
 }
 
   
@@ -103,15 +116,15 @@ svg.icon {
   }
   
   .navbar ul li a {
-    display: block; /* instead of flex! */
+    display: block; 
     text-decoration: none;
-    color: #eee;
+    color: var(--color-accent);
     font-size: 18px;
     transition: color 0.3s;
   }
   
   .navbar ul li a:hover {
-    color: #ffffff;
+    color: var(--color-accent);
   }
 
   @media (max-width: 1024px) {
