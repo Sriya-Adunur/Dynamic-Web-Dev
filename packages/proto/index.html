@@ -49,9 +49,11 @@
   <script type="module">
     import { define } from "@calpoly/mustang";
     import { MoviePreviewElement } from "/src/movie-preview.js";
+    import { FilmElement } from "/src/film-layout.js";
   
     define({
-      "movie-preview": MoviePreviewElement
+      "movie-preview": MoviePreviewElement,
+      "film-layout": FilmElement 
     });
   </script>
     <header class="main-header">
@@ -78,7 +80,9 @@
         </label>
       </header>
     <section class="movie-images">
-      <movie-preview
+        <film-layout src="/data/films.json">
+        </film-layout>
+      <!--<movie-preview
         img-src="/images/inception.jpeg"
         href="/movies/inception.html">
       </movie-preview>
@@ -105,29 +109,8 @@
       <movie-preview
         img-src="/images/littlewomen.jpeg"
         href="/movies/inception.html">
-      </movie-preview>
+      </movie-preview>-->
     </section>       
-        <!--<a href="movies/inception.html">
-            <img src="images/inception.jpeg"/>
-        </a>
-        <a href="movies/inception.html">
-            <img src="images/littlewomen.jpeg"/>
-        </a>
-        <a href="movies/inception.html">
-            <img src="images/ferris.jpg"/>
-        </a> 
-        <a href="movies/inception.html">
-            <img src="images/stelmosfire.jpg" />
-        </a> 
-        <a href="movies/inception.html">
-            <img src="images/ithappenedonenight.jpeg" />
-        </a> 
-        <a href="movies/inception.html">
-            <img src="images/thedevilwears.jpeg"/>
-        </a> 
-        <a href="movies/inception.html">
-          <img src="images/littlewomen.jpeg"/>
-      </a>-->
     <nav> 
         <ul>
             <li><h2><a href="recommendations.html">Get Recommendations</a> <svg class="icon"> <use href="/icons/movies.svg#icon-video-camera" />
