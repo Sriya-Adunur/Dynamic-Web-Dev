@@ -87,7 +87,7 @@ export class LoginFormElement extends LitElement {
         }
       )
       .then((res) => {
-        if (res.status !== 200)
+        if (res.status !== 200 && res.status !== 201)
           throw "Login failed";
         else return res.json();
       })

@@ -42,9 +42,14 @@ const TOKEN_SECRET = process.env.TOKEN_SECRET || "NOT_A_SECRET";
 router.post("/register", (req, res) => {
   const { username, password } = req.body;
   if (typeof username !== "string" || typeof password !== "string") {
-    return res.status(400).send("Invalid input");
+    res.status(400).send("Bad request: Invalid input data.");
+  } else {
+    import_credential_svc.default.create(username, password).then((creds) => generateToken(creds.username)).then((token) => {
+      res.status(201).send({ token });
+    }).catch((err) => {
+      res.status(409).send({ error: err.message });
+    });
   }
-  import_credential_svc.default.create(username, password).then((creds) => generateToken(creds.username)).then((token) => res.status(201).send({ token })).catch((err) => res.status(409).send({ error: err.toString() }));
 });
 router.post("/login", (req, res) => {
   const { username, password } = req.body;
