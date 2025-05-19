@@ -23,14 +23,17 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
 ));
 var import_express = __toESM(require("express"));
 var import_film_svc = __toESM(require("./services/film-svc"));
+var import_films = __toESM(require("./routes/films"));
 var import_mongo = require("./services/mongo");
 var import_cors = __toESM(require("cors"));
 const app = (0, import_express.default)();
-app.use((0, import_cors.default)());
-(0, import_mongo.connect)("movies");
 const port = process.env.PORT || 3e3;
 const staticDir = process.env.STATIC || "public";
+(0, import_mongo.connect)("movies");
+app.use((0, import_cors.default)());
 app.use(import_express.default.static(staticDir));
+app.use(import_express.default.json());
+app.use("/api/films", import_films.default);
 app.get("/hello", (req, res) => {
   res.send("Hello, World");
 });

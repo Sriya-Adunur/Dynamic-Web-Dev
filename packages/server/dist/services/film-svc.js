@@ -39,4 +39,19 @@ function get(id) {
     return film;
   });
 }
-var film_svc_default = { index, get };
+function create(json) {
+  const f = new FilmModel(json);
+  return f.save();
+}
+function update(id, film) {
+  return FilmModel.findByIdAndUpdate(id, film, { new: true }).then((updated) => {
+    if (!updated) throw `${id} not updated`;
+    return updated;
+  });
+}
+function remove(id) {
+  return FilmModel.findByIdAndDelete(id).then((deleted) => {
+    if (!deleted) throw `${id} not deleted`;
+  });
+}
+var film_svc_default = { index, get, create, update, remove };

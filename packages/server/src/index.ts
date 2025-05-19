@@ -1,18 +1,21 @@
 // src/index.ts
 import express, { Request, Response } from "express";
 import Films from "./services/film-svc";
+import films from "./routes/films";
 import { connect } from "./services/mongo";
 import cors from "cors";
 
 const app = express();
-
-app.use(cors());
-
-connect("movies");
 const port = process.env.PORT || 3000;
 const staticDir = process.env.STATIC || "public";
 
+connect("movies");
+
+app.use(cors());
 app.use(express.static(staticDir));
+app.use(express.json());
+
+app.use("/api/films", films);
 
 app.get("/hello", (req: Request, res: Response) => {
     res.send("Hello, World");
