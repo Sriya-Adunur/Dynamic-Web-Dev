@@ -12,7 +12,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
   <title>SeenThat</title>
-  <script type="module" crossorigin src="/assets/index-I-1eC11z.js"></script>
+  <script type="module" crossorigin src="/assets/index-DGEX6pYp.js"></script>
 </head>
 <body>
   <script>
@@ -47,6 +47,8 @@
       event.currentTarget.dispatchEvent(customEvent);
     }
   </script>
+  <mu-auth provides="auth">
+    <site-header></site-header>
     <header class="main-header">
         <div class="logo">
           <h1>
@@ -71,7 +73,7 @@
         </label>
       </header>
     <section class="movie-images">
-        <film-layout src="/data/films.json">
+        <film-layout src="http://localhost:3000/api/films">
         </film-layout>
       <!--<movie-preview
         img-src="/images/inception.jpeg"
@@ -112,5 +114,6 @@
         </ul>
     </nav>
     <h3>Rate movies you've seen and get new movie suggestions based on your taste!</h3>
+  </mu-auth>
 </body>
 </html>

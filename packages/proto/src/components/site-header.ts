@@ -27,7 +27,7 @@ export class HeaderElement extends LitElement {
   renderSignOutButton() {
     return html`
       <button
-        @click=${(e: Event) =>
+        @click=${(_e: Event) =>
           this.dispatchEvent(
             new CustomEvent("auth:message", {
               bubbles: true,

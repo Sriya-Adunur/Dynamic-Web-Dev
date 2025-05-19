@@ -1,8 +1,8 @@
 import { html, css, LitElement } from "lit";
-import { Observer } from "@calpoly/mustang";
-import { Auth } from "@calpoly/mustang";
+import { Observer, Auth } from "@calpoly/mustang";
 import { property, state } from "lit/decorators.js";
 import reset from "./styles/reset.css.ts";
+
 
 interface Film {
   filmImage: string;
@@ -19,23 +19,45 @@ export class FilmElement extends LitElement {
   connectedCallback() {
     super.connectedCallback();
 
-    // Observe <mu-auth> for a logged-in user
     this._authObserver.observe((auth) => {
       this._user = auth.user;
       if (this.src) {
         this.hydrate(this.src);
       }
     });
-  }
+   }
+    
 
-  get authorization() {
+
+ /* get authorization() {
     return (
       this._user?.authenticated && {
         Authorization: `Bearer ${this._user.token}`
       }
     );
-  }
+  }*/
 
+    /*get authorization(): HeadersInit | undefined {
+      if (this._user?.authenticated) {
+        return {
+          Authorization: `Bearer ${this._user.token}`
+        };
+      }
+      return undefined;
+    }
+      */
+
+    get authorization(): HeadersInit | undefined {
+      if (this._user?.authenticated && "token" in this._user) {
+        return {
+          Authorization: `Bearer ${this._user.token}`
+        };
+      }
+      return undefined;
+    }
+    
+      
+    
   async hydrate(src: string) {
     try {
       const res = await fetch(src, { headers: this.authorization });
