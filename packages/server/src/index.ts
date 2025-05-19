@@ -4,6 +4,7 @@ import Films from "./services/film-svc";
 import films from "./routes/films";
 import { connect } from "./services/mongo";
 import cors from "cors";
+import auth, { authenticateUser } from "./routes/auth";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -15,7 +16,8 @@ app.use(cors());
 app.use(express.static(staticDir));
 app.use(express.json());
 
-app.use("/api/films", films);
+app.use("/auth", auth);
+app.use("/api/films", authenticateUser, films);
 
 app.get("/hello", (req: Request, res: Response) => {
     res.send("Hello, World");
@@ -25,7 +27,7 @@ app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
 
-app.get("/films", (req, res) => {
+/*app.get("/films", (req, res) => {
   Films.index().then((data) => {
     res.set("Content-Type", "application/json").send(JSON.stringify(data));
   }).catch((err) => {
@@ -34,7 +36,7 @@ app.get("/films", (req, res) => {
   });
 });
 
-// GET film by ID
+GET film by ID
 app.get("/films/:id", (req, res) => {
   const { id } = req.params;
 
@@ -44,4 +46,4 @@ app.get("/films/:id", (req, res) => {
     console.error(err);
     res.status(404).send();
   });
-});
+}); */

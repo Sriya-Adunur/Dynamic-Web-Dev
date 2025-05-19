@@ -22,10 +22,10 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   mod
 ));
 var import_express = __toESM(require("express"));
-var import_film_svc = __toESM(require("./services/film-svc"));
 var import_films = __toESM(require("./routes/films"));
 var import_mongo = require("./services/mongo");
 var import_cors = __toESM(require("cors"));
+var import_auth = __toESM(require("./routes/auth"));
 const app = (0, import_express.default)();
 const port = process.env.PORT || 3e3;
 const staticDir = process.env.STATIC || "public";
@@ -33,27 +33,11 @@ const staticDir = process.env.STATIC || "public";
 app.use((0, import_cors.default)());
 app.use(import_express.default.static(staticDir));
 app.use(import_express.default.json());
-app.use("/api/films", import_films.default);
+app.use("/auth", import_auth.default);
+app.use("/api/films", import_auth.authenticateUser, import_films.default);
 app.get("/hello", (req, res) => {
   res.send("Hello, World");
 });
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
-});
-app.get("/films", (req, res) => {
-  import_film_svc.default.index().then((data) => {
-    res.set("Content-Type", "application/json").send(JSON.stringify(data));
-  }).catch((err) => {
-    console.error(err);
-    res.status(500).send();
-  });
-});
-app.get("/films/:id", (req, res) => {
-  const { id } = req.params;
-  import_film_svc.default.get(id).then((data) => {
-    res.set("Content-Type", "application/json").send(JSON.stringify(data));
-  }).catch((err) => {
-    console.error(err);
-    res.status(404).send();
-  });
 });
