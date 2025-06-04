@@ -68,8 +68,9 @@ function authenticateUser(req, res, next) {
   const token = req.headers.authorization?.split(" ")[1];
   if (!token) return res.status(401).end();
   import_jsonwebtoken.default.verify(token, TOKEN_SECRET, (err, decoded) => {
-    if (decoded) next();
-    else res.status(403).end();
+    if (err || !decoded?.username) return res.status(403).end();
+    req.user = { username: decoded.username };
+    next();
   });
 }
 var auth_default = router;

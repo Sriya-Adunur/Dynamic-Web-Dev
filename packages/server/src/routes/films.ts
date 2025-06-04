@@ -1,6 +1,7 @@
 import express, { Request, Response } from "express";
 import Films from "../services/film-svc";
 import { Film } from "../models/film";
+import { authenticateUser } from "./auth";
 
 const router = express.Router();
 
@@ -42,5 +43,56 @@ router.delete("/:id", (req: Request, res: Response) => {
     .then(() => res.status(204).end())
     .catch((err) => res.status(404).send(err));
 });
+
+/*router.post("/:id/reviews", authenticateUser, (req: Request, res: Response) => {
+  const { id } = req.params;
+  const { rating, comment } = req.body;
+  const username = (req as any).user?.username;
+
+  if (!username || typeof rating !== "number" || !comment) {
+    return res.status(400).send("Missing fields");
+  }
+
+  const review = {
+    username,
+    rating,
+    comment,
+    date: new Date().toISOString()
+  };
+
+  Films.addReview(id, review)
+    .then(() => res.status(201).send({ message: "Review saved" }))
+    .catch((err) => res.status(500).send(err));
+});*/
+
+router.post("/:id/reviews", authenticateUser, async (req, res) => {
+  const { id } = req.params;
+  const { rating, comment } = req.body;
+  const username = (req as any).user?.username;
+
+  if (!username || typeof rating !== "number" || !comment) {
+    return res.status(400).send("Missing fields");
+  }
+
+  const film = await Films.get(id);
+
+  if (!film) return res.status(404).send("Film not found");
+
+  // Remove existing review by this user (if any)
+  film.reviews = (film.reviews || []).filter((r) => r.username !== username);
+
+  // Add new/updated review
+  film.reviews.push({
+    username,
+    rating,
+    comment,
+    date: new Date().toISOString()
+  });
+
+  await film.save();
+  res.status(201).send({ message: "Review saved" });
+});
+
+
 
 export default router;

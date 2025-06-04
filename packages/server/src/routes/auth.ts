@@ -60,7 +60,7 @@ function generateToken(username: string): Promise<string> {
   });
 }
 
-export function authenticateUser(req: Request, res: Response, next: NextFunction) {
+/*export function authenticateUser(req: Request, res: Response, next: NextFunction) {
   const token = req.headers.authorization?.split(" ")[1];
   if (!token) return res.status(401).end();
 
@@ -68,6 +68,18 @@ export function authenticateUser(req: Request, res: Response, next: NextFunction
     if (decoded) next();
     else res.status(403).end();
   });
+}*/
+
+export function authenticateUser(req: Request, res: Response, next: NextFunction) {
+  const token = req.headers.authorization?.split(" ")[1];
+  if (!token) return res.status(401).end();
+
+  jwt.verify(token, TOKEN_SECRET, (err, decoded: any) => {
+    if (err || !decoded?.username) return res.status(403).end();
+    (req as any).user = { username: decoded.username }; // attach user to request
+    next();
+  });
 }
+
 
 export default router;

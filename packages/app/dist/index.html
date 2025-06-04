@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/styles/page.css" />
+  <link rel="stylesheet" href="/styles/tokens.css" />
+  <link rel="stylesheet" href="/styles/reset.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+  <script type="module" crossorigin src="/assets/main-CnwWq7i4.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/reset.css-CrDZLBjt.js">
+</head>
+<body>
+  <!-- <mu-history provides="app:history">
+    <mu-auth provides="app:auth" redirect="/login.html">
+      <article class="page">
+        <site-header></site-header>
+        <mu-switch></mu-switch>
+      </article>
+    </mu-auth>
+  </mu-history> -->
+    <mu-history provides="app:history">
+      <mu-auth provides="app:auth" redirect="/login.html">
+        <mu-store provides="app:model">
+          <article class="page">
+            <site-header></site-header>
+            <mu-switch></mu-switch>
+          </article>
+        </mu-store>
+      </mu-auth>
+    </mu-history>
+  <script>
+    const page = document.body;
+
+    const saved = localStorage.getItem("dark-mode");
+    if (saved === "true") {
+      page.classList.add("dark-mode");
+    }
+
+    page.addEventListener("darkmode:toggle", (event) => {
+      const enabled = event.detail.enabled;
+      page.classList.toggle("dark-mode", enabled);
+      localStorage.setItem("dark-mode", enabled);
+    });
+  </script>
+</body>
+</html>
+
+ 

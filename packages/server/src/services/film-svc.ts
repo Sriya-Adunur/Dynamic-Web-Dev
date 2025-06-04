@@ -1,13 +1,26 @@
 import { Schema, model } from "mongoose";
 import { Film } from "../models/film";
 
-const FilmSchema = new Schema<Film>(
+/*const FilmSchema = new Schema<Film>(
     {
       filmImage: { type: String, required: true, trim: true },
       ratingLink: { type: String, required: true, trim: true },
     },
     { collection: "films" }
+  );*/
+
+  const FilmSchema = new Schema<Film>(
+    {
+      title: { type: String, required: true },
+      plot: { type: String, required: true },
+      genres: [String],
+      cast: [{ name: String, role: String }],
+      filmImage: { type: String, required: true },
+      reviews: [{ username: String, rating: Number, comment: String, date: String }]
+    },
+    { collection: "films" }
   );
+  
 
 const FilmModel = model<Film>("Film", FilmSchema);
 
@@ -42,4 +55,15 @@ function remove(id: string): Promise<void> {
   });
 }
 
-export default { index, get, create, update, remove };
+function addReview(id: string, review: Review): Promise<void> {
+  return FilmModel.findByIdAndUpdate(
+    id,
+    { $push: { reviews: review } },
+    { new: true }
+  ).then((updated) => {
+    if (!updated) throw new Error(`${id} not found`);
+  });
+}
+
+
+export default { index, get, create, update, remove, addReview };

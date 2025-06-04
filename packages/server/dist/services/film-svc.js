@@ -24,8 +24,12 @@ module.exports = __toCommonJS(film_svc_exports);
 var import_mongoose = require("mongoose");
 const FilmSchema = new import_mongoose.Schema(
   {
-    filmImage: { type: String, required: true, trim: true },
-    ratingLink: { type: String, required: true, trim: true }
+    title: { type: String, required: true },
+    plot: { type: String, required: true },
+    genres: [String],
+    cast: [{ name: String, role: String }],
+    filmImage: { type: String, required: true },
+    reviews: [{ username: String, rating: Number, comment: String, date: String }]
   },
   { collection: "films" }
 );
@@ -54,4 +58,13 @@ function remove(id) {
     if (!deleted) throw `${id} not deleted`;
   });
 }
-var film_svc_default = { index, get, create, update, remove };
+function addReview(id, review) {
+  return FilmModel.findByIdAndUpdate(
+    id,
+    { $push: { reviews: review } },
+    { new: true }
+  ).then((updated) => {
+    if (!updated) throw new Error(`${id} not found`);
+  });
+}
+var film_svc_default = { index, get, create, update, remove, addReview };

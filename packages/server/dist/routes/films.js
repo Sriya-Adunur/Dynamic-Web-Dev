@@ -33,6 +33,7 @@ __export(films_exports, {
 module.exports = __toCommonJS(films_exports);
 var import_express = __toESM(require("express"));
 var import_film_svc = __toESM(require("../services/film-svc"));
+var import_auth = require("./auth");
 const router = import_express.default.Router();
 router.get("/", (_, res) => {
   import_film_svc.default.index().then((list) => res.json(list)).catch((err) => res.status(500).send(err));
@@ -53,5 +54,24 @@ router.put("/:id", (req, res) => {
 router.delete("/:id", (req, res) => {
   const { id } = req.params;
   import_film_svc.default.remove(id).then(() => res.status(204).end()).catch((err) => res.status(404).send(err));
+});
+router.post("/:id/reviews", import_auth.authenticateUser, async (req, res) => {
+  const { id } = req.params;
+  const { rating, comment } = req.body;
+  const username = req.user?.username;
+  if (!username || typeof rating !== "number" || !comment) {
+    return res.status(400).send("Missing fields");
+  }
+  const film = await import_film_svc.default.get(id);
+  if (!film) return res.status(404).send("Film not found");
+  film.reviews = (film.reviews || []).filter((r) => r.username !== username);
+  film.reviews.push({
+    username,
+    rating,
+    comment,
+    date: (/* @__PURE__ */ new Date()).toISOString()
+  });
+  await film.save();
+  res.status(201).send({ message: "Review saved" });
 });
 var films_default = router;
