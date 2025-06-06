@@ -2,6 +2,8 @@ import express, { Request, Response } from "express";
 import Films from "../services/film-svc";
 import { Film } from "../models/film";
 import { authenticateUser } from "./auth";
+import { Review } from "../models/film";
+import FilmModel from "../models/film";
 
 const router = express.Router();
 
@@ -44,55 +46,84 @@ router.delete("/:id", (req: Request, res: Response) => {
     .catch((err) => res.status(404).send(err));
 });
 
-/*router.post("/:id/reviews", authenticateUser, (req: Request, res: Response) => {
+
+/*router.put("/:id/review", authenticateUser, async (req, res) => {
   const { id } = req.params;
-  const { rating, comment } = req.body;
   const username = (req as any).user?.username;
+  let { rating, comment } = req.body;
+  rating = Number(rating);
+
+  if (!username || isNaN(rating) || !comment) {
+    return res.status(400).send("Missing or invalid fields");
+  }
+
+  console.log("PUT /:id/review called");
+  console.log("req.user:", (req as any).user);
+  console.log("req.body:", req.body);
 
   if (!username || typeof rating !== "number" || !comment) {
     return res.status(400).send("Missing fields");
   }
 
-  const review = {
-    username,
-    rating,
-    comment,
-    date: new Date().toISOString()
-  };
+  const updated = await FilmModel.findByIdAndUpdate(
+    id,
+    {
+      review: {
+        username,
+        rating,
+        comment,
+        date: new Date().toISOString()
+      }
+    },
+    { new: true }
+  );
 
-  Films.addReview(id, review)
-    .then(() => res.status(201).send({ message: "Review saved" }))
-    .catch((err) => res.status(500).send(err));
+  if (!updated) return res.status(404).send("Film not found");
+  res.status(200).json(updated.review);
 });*/
 
-router.post("/:id/reviews", authenticateUser, async (req, res) => {
+router.put("/:id/review", authenticateUser, async (req, res) => {
   const { id } = req.params;
-  const { rating, comment } = req.body;
   const username = (req as any).user?.username;
+  let { rating, comment } = req.body;
 
-  if (!username || typeof rating !== "number" || !comment) {
-    return res.status(400).send("Missing fields");
+  console.log("🔹 Incoming Review Submit");
+  console.log("➡️ Film ID:", id);
+  console.log("➡️ Username:", username);
+  console.log("➡️ Rating:", rating);
+  console.log("➡️ Comment:", comment);
+
+  rating = Number(rating);
+  if (!username || isNaN(rating) || !comment) {
+    return res.status(400).send("Missing or invalid fields");
   }
 
-  const film = await Films.get(id);
+await FilmModel.updateOne(
+  { _id: id },
+  { $pull: { reviews: { username } } }
+);
 
-  if (!film) return res.status(404).send("Film not found");
+const updated = await FilmModel.findOneAndUpdate(
+  { _id: id },
+  {
+    $push: {
+      reviews: {
+        username,
+        rating,
+        comment,
+        date: new Date().toISOString()
+      }
+    }
+  },
+  { new: true }
+);
 
-  // Remove existing review by this user (if any)
-  film.reviews = (film.reviews || []).filter((r) => r.username !== username);
 
-  // Add new/updated review
-  film.reviews.push({
-    username,
-    rating,
-    comment,
-    date: new Date().toISOString()
-  });
+  console.log("✅ Updated Film:", updated);
 
-  await film.save();
-  res.status(201).send({ message: "Review saved" });
+  if (!updated) return res.status(404).send("Film not found");
+  res.status(200).json({ message: "Review saved", reviews: updated.reviews });
 });
-
 
 
 export default router;

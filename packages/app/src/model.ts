@@ -1,5 +1,5 @@
 // src/model.ts
-import { Film, Review, Profile } from "server/models";
+/*import { Film, Review, Profile } from "server/models";
 
 export interface ReviewDraft {
     filmId: string;
@@ -15,7 +15,17 @@ export interface Model {
   reviewDrafts: Record<string, ReviewDraft>;
 }
 
-/*export const init: Model = {};*/
 export const init: Model = {
     reviewDrafts: {}
-  };
+  };*/
+
+import { Film, Review, Profile } from "server/models";
+import { AuthenticatedUser } from "@calpoly/mustang";
+
+export interface Model {
+    profile?: Profile;
+    films?: Film[];
+    selectedFilm?: Film;
+  }
+
+export const init: Model = {};

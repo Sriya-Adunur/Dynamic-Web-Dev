@@ -15,6 +15,7 @@ import {
   import { Model } from "./model";  
   import { init } from "./model";
   import { Msg } from "./messages";
+  import "./components/sign-in-link.ts";
 
   const routes = [
     {
@@ -41,19 +42,6 @@ import {
     }
     
   ];
-  
-  /*define({
-    "mu-auth": Auth.Provider,
-    "mu-history": History.Provider,
-    "site-header": HeaderElement,
-    "home-view": HomeViewElement,
-    "rating-view": RatingViewElement,
-    "mu-switch": class AppSwitch extends Switch.Element {
-      constructor() {
-        super(routes, "app:history", "app:auth");
-      }
-    }
-  });*/
 
   define({
     "mu-history": History.Provider,
@@ -68,10 +56,15 @@ import {
       constructor() {
         super([
           { path: "/app", view: () => html`<home-view></home-view>` },
-          {
+          /*{
             path: "/app/film/:id/rate",
             view: (params) => html`<rating-view film-id=${params.id}></rating-view>`
-          },
+          },*/
+          {
+            path: "/app/film/:id/rate",
+            view: (params) =>
+              html`<rating-view film-id=${params.id} userid=${params.userid}></rating-view>`
+          },          
           {
             path: "/app/profile/:userid/edit",
             view: (params) => html`

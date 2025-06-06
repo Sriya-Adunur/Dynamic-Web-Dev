@@ -1,7 +1,9 @@
 "use strict";
+var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
+var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
 var __export = (target, all) => {
   for (var name in all)
@@ -15,56 +17,43 @@ var __copyProps = (to, from, except, desc) => {
   }
   return to;
 };
+var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__getProtoOf(mod)) : {}, __copyProps(
+  // If the importer is in node compatibility mode or this is not an ESM
+  // file that has been converted to a CommonJS file using a Babel-
+  // compatible transform (i.e. "__esModule" has not been set), then set
+  // "default" to the CommonJS "module.exports" for node compatibility.
+  isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
+  mod
+));
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
 var film_svc_exports = {};
 __export(film_svc_exports, {
   default: () => film_svc_default
 });
 module.exports = __toCommonJS(film_svc_exports);
-var import_mongoose = require("mongoose");
-const FilmSchema = new import_mongoose.Schema(
-  {
-    title: { type: String, required: true },
-    plot: { type: String, required: true },
-    genres: [String],
-    cast: [{ name: String, role: String }],
-    filmImage: { type: String, required: true },
-    reviews: [{ username: String, rating: Number, comment: String, date: String }]
-  },
-  { collection: "films" }
-);
-const FilmModel = (0, import_mongoose.model)("Film", FilmSchema);
+var import_film2 = __toESM(require("../models/film"));
 function index() {
-  return FilmModel.find();
+  return import_film2.default.find();
 }
 function get(id) {
-  return FilmModel.findById(id).then((film) => {
+  return import_film2.default.findById(id).then((film) => {
     if (!film) throw new Error(`${id} Not Found`);
     return film;
   });
 }
 function create(json) {
-  const f = new FilmModel(json);
+  const f = new import_film2.default(json);
   return f.save();
 }
 function update(id, film) {
-  return FilmModel.findByIdAndUpdate(id, film, { new: true }).then((updated) => {
+  return import_film2.default.findByIdAndUpdate(id, film, { new: true }).then((updated) => {
     if (!updated) throw `${id} not updated`;
     return updated;
   });
 }
 function remove(id) {
-  return FilmModel.findByIdAndDelete(id).then((deleted) => {
+  return import_film2.default.findByIdAndDelete(id).then((deleted) => {
     if (!deleted) throw `${id} not deleted`;
   });
 }
-function addReview(id, review) {
-  return FilmModel.findByIdAndUpdate(
-    id,
-    { $push: { reviews: review } },
-    { new: true }
-  ).then((updated) => {
-    if (!updated) throw new Error(`${id} not found`);
-  });
-}
-var film_svc_default = { index, get, create, update, remove, addReview };
+var film_svc_default = { index, get, create, update, remove };

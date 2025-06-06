@@ -127,6 +127,24 @@ svg.icon {
     color: var(--color-accent);
   }
 
+  mu-form button[slot="submit"] {
+    background-color: var(--color-accent);
+    color: var(--color-header-background);
+    font-weight: bold;
+    border: none;
+    padding: 0.75rem;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+    width: 100%;
+    transition: background 0.3s;
+  }
+  
+  mu-form button[slot="submit"]:hover {
+    background-color: #c43730;
+  }
+  
+
   @media (max-width: 1024px) {
     .content {
       grid-template-columns: repeat(8, 1fr);

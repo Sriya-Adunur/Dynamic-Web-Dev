@@ -11,20 +11,12 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
-  <script type="module" crossorigin src="/assets/main-CnwWq7i4.js"></script>
+  <script type="module" crossorigin src="/assets/main-BIt0meUX.js"></script>
   <link rel="modulepreload" crossorigin href="/assets/reset.css-CrDZLBjt.js">
 </head>
 <body>
-  <!-- <mu-history provides="app:history">
-    <mu-auth provides="app:auth" redirect="/login.html">
-      <article class="page">
-        <site-header></site-header>
-        <mu-switch></mu-switch>
-      </article>
-    </mu-auth>
-  </mu-history> -->
     <mu-history provides="app:history">
-      <mu-auth provides="app:auth" redirect="/login.html">
+      <mu-auth provides="app:auth">
         <mu-store provides="app:model">
           <article class="page">
             <site-header></site-header>
@@ -33,21 +25,25 @@
         </mu-store>
       </mu-auth>
     </mu-history>
-  <script>
-    const page = document.body;
-
-    const saved = localStorage.getItem("dark-mode");
-    if (saved === "true") {
-      page.classList.add("dark-mode");
-    }
-
-    page.addEventListener("darkmode:toggle", (event) => {
-      const enabled = event.detail.enabled;
-      page.classList.toggle("dark-mode", enabled);
-      localStorage.setItem("dark-mode", enabled);
-    });
-  </script>
+    <script>
+      const page = document.body;
+    
+      const saved = localStorage.getItem("dark-mode");
+      if (saved === "true") {
+        page.classList.add("dark-mode");
+      }
+    
+      page.addEventListener("darkmode:toggle", (event) => {
+        const enabled = event.detail.enabled;
+        page.classList.toggle("dark-mode", enabled);
+        localStorage.setItem("dark-mode", enabled);
+      });
+    
+      // optional: for sign-in links
+      document.getElementById("signin")?.addEventListener("click", () => {
+        location.assign("/login.html");
+      });
+    </script>
 </body>
-</html>
+</html> 
 
- 

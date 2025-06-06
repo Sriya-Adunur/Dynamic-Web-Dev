@@ -1,7 +1,7 @@
 import { View } from "@calpoly/mustang";
 import { html, css } from "lit";
 import update from "../update";
-import { init } from "../model";
+import { init } from "./model";
 import { Model } from "../model";
 import { Msg } from "../messages";
 import reset from "../styles/reset.css.ts";

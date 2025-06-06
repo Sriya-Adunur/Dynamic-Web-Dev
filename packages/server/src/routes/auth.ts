@@ -81,5 +81,8 @@ export function authenticateUser(req: Request, res: Response, next: NextFunction
   });
 }
 
+router.get("/user", authenticateUser, (req, res) => {
+  res.json({ user: req.user });
+});
 
 export default router;

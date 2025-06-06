@@ -34,6 +34,7 @@ module.exports = __toCommonJS(films_exports);
 var import_express = __toESM(require("express"));
 var import_film_svc = __toESM(require("../services/film-svc"));
 var import_auth = require("./auth");
+var import_film3 = __toESM(require("../models/film"));
 const router = import_express.default.Router();
 router.get("/", (_, res) => {
   import_film_svc.default.index().then((list) => res.json(list)).catch((err) => res.status(500).send(err));
@@ -55,23 +56,39 @@ router.delete("/:id", (req, res) => {
   const { id } = req.params;
   import_film_svc.default.remove(id).then(() => res.status(204).end()).catch((err) => res.status(404).send(err));
 });
-router.post("/:id/reviews", import_auth.authenticateUser, async (req, res) => {
+router.put("/:id/review", import_auth.authenticateUser, async (req, res) => {
   const { id } = req.params;
-  const { rating, comment } = req.body;
   const username = req.user?.username;
-  if (!username || typeof rating !== "number" || !comment) {
-    return res.status(400).send("Missing fields");
+  let { rating, comment } = req.body;
+  console.log("\u{1F539} Incoming Review Submit");
+  console.log("\u27A1\uFE0F Film ID:", id);
+  console.log("\u27A1\uFE0F Username:", username);
+  console.log("\u27A1\uFE0F Rating:", rating);
+  console.log("\u27A1\uFE0F Comment:", comment);
+  rating = Number(rating);
+  if (!username || isNaN(rating) || !comment) {
+    return res.status(400).send("Missing or invalid fields");
   }
-  const film = await import_film_svc.default.get(id);
-  if (!film) return res.status(404).send("Film not found");
-  film.reviews = (film.reviews || []).filter((r) => r.username !== username);
-  film.reviews.push({
-    username,
-    rating,
-    comment,
-    date: (/* @__PURE__ */ new Date()).toISOString()
-  });
-  await film.save();
-  res.status(201).send({ message: "Review saved" });
+  await import_film3.default.updateOne(
+    { _id: id },
+    { $pull: { reviews: { username } } }
+  );
+  const updated = await import_film3.default.findOneAndUpdate(
+    { _id: id },
+    {
+      $push: {
+        reviews: {
+          username,
+          rating,
+          comment,
+          date: (/* @__PURE__ */ new Date()).toISOString()
+        }
+      }
+    },
+    { new: true }
+  );
+  console.log("\u2705 Updated Film:", updated);
+  if (!updated) return res.status(404).send("Film not found");
+  res.status(200).json({ message: "Review saved", reviews: updated.reviews });
 });
 var films_default = router;

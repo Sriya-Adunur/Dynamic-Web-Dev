@@ -26,8 +26,12 @@ export class HeaderElement extends LitElement {
     this.dispatchEvent(new CustomEvent("auth:message", {
       bubbles: true,
       composed: true,
-      detail: ["auth/signout"]
+      detail: [
+        "auth/signout",
+      ]
     }));
+    location.assign("/login.html");
+
   }
 
   toggleDarkMode(e: Event) {
@@ -76,7 +80,7 @@ export class HeaderElement extends LitElement {
           <div class="user-controls">
             ${this.loggedIn
               ? html`<button @click=${this.handleSignOut}>Sign Out</button>`
-              : html`<a href="/login.html">Sign In</a>`}
+              : html`<a @click=${() => location.assign("/login.html")}>Sign In</a>`}
 
             <label class="darkmode">
               <input
@@ -192,7 +196,7 @@ export class HeaderElement extends LitElement {
       text-decoration: none;
       color: inherit;
     }
-      
+
     .darkmode input[type="checkbox"] {
       accent-color: var(--color-accent);
     }
