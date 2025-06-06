@@ -216,362 +216,6 @@ render() {
   }
 }*/
 
-/*import { View, define, Form } from "@calpoly/mustang";
-import { html, css } from "lit";
-import { property } from "lit/decorators.js";
-import { Model } from "../model";
-import { Msg } from "../messages";
-import reset from "../styles/reset.css.ts";
-
-export class RatingViewElement extends View<Model, Msg> {
-  constructor() {
-    super("app:model");
-  }
-
-  static uses = define({
-    "mu-form": Form.Element
-  });
-
-  @property({ attribute: "film-id" }) filmId?: string;
-
-  get film() {
-    return this.model.selectedFilm;
-  }
-
-  get myReview() {
-    return this.film?.review;
-  }
-
-  connectedCallback() {
-    super.connectedCallback();
-    if (this.filmId) {
-      this.dispatchMessage(["film/select", { id: this.filmId }]);
-    }
-  }
-
-  handleSubmit(e: Form.SubmitEvent<{ rating: number; comment: string }>) {
-    const filmId = this.filmId!;
-    this.dispatchMessage([
-      "review/save",
-      {
-        filmId,
-        review: e.detail,
-        onSuccess: () =>
-          this.dispatchMessage(["film/select", { id: filmId }]),
-        onFailure: (err) => console.error("Review save failed", err)
-      }
-    ]);
-  }
-
-  render() {
-    if (!this.film) return html`<p>Loading film...</p>`;
-
-    return html`
-      <main class="page">
-        <h2>Review: ${this.film.title}</h2>
-        <section class="review-card">
-          <p><strong>Plot:</strong> ${this.film.plot}</p>
-          <p><strong>Genres:</strong> ${this.film.genres.join(", ")}</p>
-          <ul>
-            ${this.film.cast.map(
-              (c) => html`<li>${c.name} - ${c.role}</li>`
-            )}
-          </ul>
-
-          <mu-form
-            .init=${this.myReview}
-            @mu-form:submit=${this.handleSubmit}
-          >
-            <select
-                name="rating"
-                required
-                .value=${this.myReview?.rating?.toString() ?? ""}
-                >
-                <option value="">Select</option>
-                <option value="5">⭐️⭐️⭐️⭐️⭐️</option>
-                <option value="4">⭐️⭐️⭐️⭐️</option>
-                <option value="3">⭐️⭐️⭐️</option>
-                <option value="2">⭐️⭐️</option>
-                <option value="1">⭐️</option>
-            </select>
-            <label>Your Review:
-              <textarea
-                name="comment"
-                rows="4"
-                required
-                .value=${this.myReview?.comment ?? ""}
-              ></textarea>
-            </label>
-          </mu-form>
-        </section>
-      </main>
-    `;
-  }
-
-  static styles = [
-    reset,
-    css`
-      .page {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding: 2rem;
-      }
-
-      h2 {
-        font-family: "Outfit", sans-serif;
-        color: var(--color-smaller-text);
-        margin-bottom: 1rem;
-        font-size: 2rem;
-        text-align: center;
-      }
-
-      .review-card {
-        background: var(--color-header-background);
-        padding: 2.5rem;
-        border-radius: 12px;
-        max-width: 600px;
-        width: 100%;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        color: var(--color-header-text);
-      }
-
-      mu-form {
-        display: flex;
-        flex-direction: column;
-        gap: 1.5rem;
-        margin-top: 2rem;
-        width: 100%;
-      }
-
-      mu-form label {
-        display: flex;
-        flex-direction: column;
-        font-size: 1.1rem;
-        font-weight: 500;
-        color: var(--color-accent);
-      }
-
-      mu-form input,
-      mu-form textarea {
-        margin-top: 0.5rem;
-        padding: 0.8rem 1rem;
-        border-radius: 8px;
-        border: none;
-        font-size: 1.1rem;
-        width: 100%;
-      }
-
-      .submitted-review {
-        margin-top: 2rem;
-        padding: 1rem;
-        background-color: var(--color-accent-transparent);
-        border-radius: 8px;
-        color: var(--color-header-text);
-        font-size: 1.05rem;
-      }
-    `
-  ];
-}*/
-
-/*import { View, define, Form } from "@calpoly/mustang";
-import { Auth } from "@calpoly/mustang";
-import { html, css } from "lit";
-import { property } from "lit/decorators.js";
-import { Model, Review, Profile  } from "../model";
-import { Msg } from "../messages";
-import reset from "../styles/reset.css.ts";
-
-export class RatingViewElement extends View<Model, Msg> {
-  constructor() {
-    super("app:model");
-  }
-
-  static uses = define({
-    "mu-form": Form.Element
-  });
-
-  @property({ attribute: "film-id" }) filmId?: string;
-
-  get film() {
-    return this.model.selectedFilm;
-  }
-
-  
-  get myReview(): Review | undefined {
-    return this.film?.reviews?.find((r) => r.username === this.userid);
-  }
-
-  connectedCallback() {
-    super.connectedCallback();
-    if (this.filmId) {
-      this.dispatchMessage(["film/select", { id: this.filmId }]);
-    }
-  }
-
-  handleSubmit(e: Form.SubmitEvent<Review>) {
-    const filmId = this.filmId!;
-    const username = this.userid;
-
-    if (!username) return;
-
-    const review: Review = {
-      username,
-      rating: Number(e.detail.rating),
-      comment: e.detail.comment,
-      date: new Date().toISOString()
-    };
-
-    this.dispatchMessage([
-      "review/save",
-      {
-        filmId,
-        review,
-        onSuccess: () =>
-          this.dispatchMessage(["film/select", { id: filmId }]),
-        onFailure: (err) => console.error("Review save failed", err)
-      }
-    ]);
-  }
-
-  render() {
-    return html`
-      <main class="page">
-        <h2>Review: ${this.film?.title ?? ""}</h2>
-        <section class="profile-card">
-          <mu-form
-            .init=${this.myReview ?? { rating: "", comment: "" }}
-            @mu-form:submit=${this.handleSubmit}
-          >
-            <label>Rating
-              <input
-                name="rating"
-                type="number"
-                min="1"
-                max="5"
-                .value=${this.myReview?.rating?.toString() ?? ""}
-                required
-              />
-            </label>
-
-            <label>Comment
-              <input
-                name="comment"
-                .value=${this.myReview?.comment ?? ""}
-                required
-              />
-            </label>
-
-            <button type="submit" slot="submit">Submit Review</button>
-          </mu-form>
-        </section>
-
-        <section class="review-display">
-          ${this.myReview
-            ? html`
-                <strong>${this.myReview.username}</strong>
-                rated ${this.myReview.rating}/5<br />
-                ${this.myReview.comment}
-              `
-            : html`<p>You haven’t submitted a review yet.</p>`}
-        </section>
-      </main>
-    `;
-  }
-}*/
-
-/*import { View, define, Form } from "@calpoly/mustang";
-import { html, css } from "lit";
-import { property } from "lit/decorators.js";
-import { Model } from "../model";
-import { Msg } from "../messages";
-import reset from "../styles/reset.css.ts";
-export class RatingViewElement extends View<Model, Msg> {
-  constructor() {
-    super("app:model");
-  }
-  static uses = define({
-    "mu-form": Form.Element
-  });
-  @property({ attribute: "film-id" }) filmId?: string;
-  get film() {
-    return this.model.selectedFilm;
-  }
-  get user() {
-    return this.model.auth?.user;
-  }
-  get myReview() {
-    const user = this.user;
-    return this.film?.reviews?.find((r) => r.username === user?.username);
-  }
-  connectedCallback() {
-    super.connectedCallback();
-    if (this.filmId) {
-      this.dispatchMessage(["film/select", { id: this.filmId }]);
-    }
-  }
-  handleSubmit(e: Form.SubmitEvent<{ rating: number; comment: string }>) {
-    const filmId = this.filmId!;
-    this.dispatchMessage([
-      "review/save",
-      {
-        filmId,
-        review: e.detail,
-        onSuccess: () =>
-          this.dispatchMessage(["film/select", { id: filmId }]),
-        onFailure: (err) => console.error("Review save failed", err)
-      }
-    ]);
-  }
-  render() {
-    if (!this.film) return html`<p>Loading film...</p>`;
-    return html`
-      <main class="page">
-        <h2>Review: ${this.film.title}</h2>
-        <section class="review-card">
-          <p><strong>Plot:</strong> ${this.film.plot}</p>
-          <p><strong>Genres:</strong> ${this.film.genres.join(", ")}</p>
-          <ul>
-            ${this.film.cast.map(
-              (c) => html`<li>${c.name} - ${c.role}</li>`
-            )}
-          </ul>
-          <mu-form
-            .init=${this.myReview}
-            @mu-form:submit=${this.handleSubmit}
-          >
-            <label>Rating
-              <input
-                name="rating"
-                type="number"
-                min="1"
-                max="5"
-                required
-              />
-            </label>
-            <label>Comment
-              <textarea
-                name="comment"
-                rows="4"
-                required
-              ></textarea>
-            </label>
-          </mu-form>
-        </section>
-        <section class="review-display">
-          ${this.myReview
-            ? html`
-                <strong>${this.myReview.username}</strong>
-                rated ${this.myReview.rating}/5<br />
-                ${this.myReview.comment}
-              `
-            : html`<p>You haven't submitted a review yet.</p>`}
-        </section>
-      </main>
-    `;
-  }
-}*/
-
 import { View, define, Form, Observer, Auth } from "@calpoly/mustang";
 import { html, css } from "lit";
 import { property, state } from "lit/decorators.js";
@@ -639,7 +283,7 @@ export class RatingViewElement extends View<Model, Msg> {
     ]);
   }
 
-  render() {
+  /*render() {
     if (!this.film) return html`<p>Loading film...</p>`;
 
     return html`
@@ -674,6 +318,225 @@ export class RatingViewElement extends View<Model, Msg> {
         </section>
       </main>
     `;
-  }
+  }*/
+
+    /*render() {
+      if (!this.film) return html`<p>Loading film...</p>`;
+    
+      return html`
+      <section>
+          <h2>${this.film.title}</h2>
+            <p><strong>Plot:</strong> ${this.film.plot}</p>
+            <p><strong>Genres:</strong> ${this.film.genres.join(", ")}</p>
+            <ul> <strong>Cast:</strong>
+              ${this.film.cast.map((c) => html`<li>${c.name} - ${c.role}</li>`)}
+            </ul>
+    
+            <label>Your Rating:</label>
+            <mu-form .init=${this.myReview} @mu-form:submit=${this.handleSubmit}>
+              <label>
+                <select name="rating" required>
+                  <option value="">Select</option>
+                  <option value="5">⭐️⭐️⭐️⭐️⭐️</option>
+                  <option value="4">⭐️⭐️⭐️⭐️</option>
+                  <option value="3">⭐️⭐️⭐️</option>
+                  <option value="2">⭐️⭐️</option>
+                  <option value="1">⭐️</option>
+                </select>
+              </label>
+    
+              <label>Your Review:</label>
+                <textarea name="comment" rows="4" required></textarea>
+            </mu-form>
+    
+            <h3>Reviews</h3>
+            <ul>
+              ${this.film.reviews.map(
+                (r) => html`
+                  <li>
+                    <strong>${r.username}</strong> rated ${r.rating}/5<br />
+                    ${r.comment}
+                  </li>
+                `
+              )}
+            </ul>
+        </section>
+      `;
+    }
+
+    static styles = [
+      reset,
+      css`
+      :host {
+        display: block;
+        font-family: "Lato", sans-serif;
+        background-color: var(--color-background-page, #f2efe5);
+        padding: 2rem;
+      }
+         section {
+        max-width: 600px;
+        margin: 0 auto;
+        background-color: white;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+
+         h2 {
+        font-family: "Outfit", sans-serif;
+        color: var(--color-smaller-text);
+        margin-bottom: 1rem;
+        font-size: 2rem;
+        text-align: left; 
+      }
+    
+        h3 {
+           margin-top: 2rem;
+        margin-bottom: 0.5rem;
+        font-size: 1.2rem;
+        }
+    
+        label {
+        font-weight: bold;
+        display: block;
+        margin-top: 1.5rem;
+        margin-bottom: 0.5rem;
+      }
+
+  
+      label,
+    select,
+    textarea {
+      display: block;
+      width: 100%;
+      margin-top: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+
+        ul {
+          list-style: none;
+          padding: 0;
+        }
+
+         p {
+        margin-bottom: 1rem;
+      }
+      `
+    ];
+    
+}*/
+
+render() {
+  if (!this.film) return html`<p>Loading film...</p>`;
+
+  return html`
+    <main class="page">
+      <h2>${this.film.title}</h2>
+      <section class="review-card">
+        <p><strong>Plot:</strong> ${this.film.plot}</p>
+        <p><strong>Genres:</strong> ${this.film.genres.join(", ")}</p>
+        <ul>
+          <strong>Cast:</strong>${this.film.cast.map((c) => html`<li>${c.name} - ${c.role}</li>`)}
+        </ul>
+
+        <h3>Your Rating:</h3>
+        <mu-form .init=${this.myReview} @mu-form:submit=${this.handleSubmit}>
+          <label>
+            <select name="rating" required>
+              <option value="">Select</option>
+              <option value="5">⭐️⭐️⭐️⭐️⭐️</option>
+              <option value="4">⭐️⭐️⭐️⭐️</option>
+              <option value="3">⭐️⭐️⭐️</option>
+              <option value="2">⭐️⭐️</option>
+              <option value="1">⭐️</option>
+            </select>
+          </label>
+
+          <h3>Your Review:</h3>
+          <label>
+            <textarea name="comment" rows="4" required></textarea>
+          </label>
+
+        </mu-form>
+
+        <h3>Reviews</h3>
+        <ul>
+          ${this.film.reviews.map(
+            (r) => html`
+              <li>
+                <strong>${r.username}</strong> rated ${r.rating}/5<br />
+                ${r.comment}
+              </li>
+            `
+          )}
+        </ul>
+      </section>
+    </main>
+    `;
+    }
+  
+  static styles = [
+    reset,
+    css`
+      .page {
+        padding: 2rem;
+        font-family: "Lato", sans-serif;
+        max-width: 600px;
+        margin: auto;
+        background: #fff;
+        border-radius: 0.75rem;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      }
+  
+      h2 {
+        font-size: 1.8rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+      }
+  
+      h3 {
+        margin-top: 1.5rem;
+        font-size: 1.2rem;
+      }
+
+      p {
+      margin-bottom: 1rem;
+       }
+  
+      label,
+      select,
+      textarea {
+        display: block;
+        width: 100%;
+        margin-top: 0.5rem;
+        margin-bottom: 1rem;
+      }
+  
+      select,
+      textarea {
+        padding: 0.5rem;
+        border: 1px solid #ccc;
+        border-radius: 0.25rem;
+        font-size: 1rem;
+      }
+  
+      button[type="submit"] {
+        padding: 0.6rem 1.2rem;
+        background: #a22;
+        color: white;
+        border: none;
+        border-radius: 0.3rem;
+        cursor: pointer;
+        font-weight: bold;
+      }
+  
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+
+    `
+  ];  
 }
 
