@@ -47,16 +47,6 @@ function generateToken(username: string): Promise<string> {
   });
 }
 
-/*export function authenticateUser(req: Request, res: Response, next: NextFunction) {
-  const token = req.headers.authorization?.split(" ")[1];
-  if (!token) return res.status(401).end();
-
-  jwt.verify(token, TOKEN_SECRET, (err, decoded) => {
-    if (decoded) next();
-    else res.status(403).end();
-  });
-}*/
-
 export function authenticateUser(req: Request, res: Response, next: NextFunction) {
   const token = req.headers.authorization?.split(" ")[1];
   if (!token) return res.status(401).end();

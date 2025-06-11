@@ -83,7 +83,7 @@ const updated = await FilmModel.findOneAndUpdate(
 );
 
 
-  console.log("✅ Updated Film:", updated);
+  console.log("Updated Film:", updated);
 
   if (!updated) return res.status(404).send("Film not found");
   res.status(200).json({ message: "Review saved", reviews: updated.reviews });
