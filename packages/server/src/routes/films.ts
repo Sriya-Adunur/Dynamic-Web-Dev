@@ -46,42 +46,6 @@ router.delete("/:id", (req: Request, res: Response) => {
     .catch((err) => res.status(404).send(err));
 });
 
-
-/*router.put("/:id/review", authenticateUser, async (req, res) => {
-  const { id } = req.params;
-  const username = (req as any).user?.username;
-  let { rating, comment } = req.body;
-  rating = Number(rating);
-
-  if (!username || isNaN(rating) || !comment) {
-    return res.status(400).send("Missing or invalid fields");
-  }
-
-  console.log("PUT /:id/review called");
-  console.log("req.user:", (req as any).user);
-  console.log("req.body:", req.body);
-
-  if (!username || typeof rating !== "number" || !comment) {
-    return res.status(400).send("Missing fields");
-  }
-
-  const updated = await FilmModel.findByIdAndUpdate(
-    id,
-    {
-      review: {
-        username,
-        rating,
-        comment,
-        date: new Date().toISOString()
-      }
-    },
-    { new: true }
-  );
-
-  if (!updated) return res.status(404).send("Film not found");
-  res.status(200).json(updated.review);
-});*/
-
 router.put("/:id/review", authenticateUser, async (req, res) => {
   const { id } = req.params;
   const username = (req as any).user?.username;
@@ -119,7 +83,7 @@ const updated = await FilmModel.findOneAndUpdate(
 );
 
 
-  console.log("✅ Updated Film:", updated);
+  console.log("Updated Film:", updated);
 
   if (!updated) return res.status(404).send("Film not found");
   res.status(200).json({ message: "Review saved", reviews: updated.reviews });

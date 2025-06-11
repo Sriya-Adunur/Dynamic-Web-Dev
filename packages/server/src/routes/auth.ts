@@ -7,19 +7,6 @@ dotenv.config();
 const router = express.Router();
 const TOKEN_SECRET = process.env.TOKEN_SECRET || "NOT_A_SECRET";
 
-// /auth/register
-/*router.post("/register", (req: Request, res: Response) => {
-  const { username, password } = req.body;
-  if (typeof username !== "string" || typeof password !== "string") {
-    return res.status(400).send("Invalid input");
-  }
-
-  credentials.create(username, password)
-    .then((creds) => generateToken(creds.username))
-    .then((token) => res.status(201).send({ token }))
-    .catch((err) => res.status(409).send({ error: err.toString() }));
-});*/
-
 router.post("/register", (req: Request, res: Response) => {
   const { username, password } = req.body; // from form
 
@@ -59,16 +46,6 @@ function generateToken(username: string): Promise<string> {
     });
   });
 }
-
-/*export function authenticateUser(req: Request, res: Response, next: NextFunction) {
-  const token = req.headers.authorization?.split(" ")[1];
-  if (!token) return res.status(401).end();
-
-  jwt.verify(token, TOKEN_SECRET, (err, decoded) => {
-    if (decoded) next();
-    else res.status(403).end();
-  });
-}*/
 
 export function authenticateUser(req: Request, res: Response, next: NextFunction) {
   const token = req.headers.authorization?.split(" ")[1];
