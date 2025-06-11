@@ -56,10 +56,6 @@ import {
       constructor() {
         super([
           { path: "/app", view: () => html`<home-view></home-view>` },
-          /*{
-            path: "/app/film/:id/rate",
-            view: (params) => html`<rating-view film-id=${params.id}></rating-view>`
-          },*/
           {
             path: "/app/film/:id/rate",
             view: (params) =>

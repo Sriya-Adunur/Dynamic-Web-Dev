@@ -16,29 +16,41 @@
   <link rel="stylesheet" href="/styles/tokens.css" />
   <link rel="stylesheet" href="/styles/page.css" />
   <style>
-    .page {
-      height: 100vh;
-      grid-template-rows: 1fr fit-content(1fr) 1fr;
+    body.page {
+      background-color: var(--color-background-page, #F2EFE5);
+      font-family: "Outfit", sans-serif;
+      margin: 0;
+      padding: 2rem;
     }
 
     main.card {
-      align-self: center;
-      grid-column: 3 / span 4;
+      background: white;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      max-width: 460px;
+      margin: auto;
     }
 
     h2 {
-      grid-column: start / end;
-      align-self: end;
+      text-align: center;
+      color: var(--color-larger-text, #aa2923);
+      font-family: "Outfit", sans-serif;
+      margin-bottom: 15px;
+    }
+
+    a {
+      color: var(--color-header-background, #3B5441);
     }
 
     p {
-      grid-column: 2 / -2;
       text-align: center;
+      margin-top: 15px;
     }
   </style>
-  <script type="module" crossorigin src="/assets/newuser-CPvpOcej.js"></script>
+  <script type="module" crossorigin src="/assets/newuser-g_HXMQA9.js"></script>
   <link rel="modulepreload" crossorigin href="/assets/reset.css-CrDZLBjt.js">
-  <link rel="modulepreload" crossorigin href="/assets/login-form-BLc-9gM8.js">
+  <link rel="modulepreload" crossorigin href="/assets/login-form-B156ln7D.js">
 </head>
 <body class="page">
 <mu-auth provides="app:auth">

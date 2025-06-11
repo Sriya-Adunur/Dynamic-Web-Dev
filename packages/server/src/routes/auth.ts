@@ -7,19 +7,6 @@ dotenv.config();
 const router = express.Router();
 const TOKEN_SECRET = process.env.TOKEN_SECRET || "NOT_A_SECRET";
 
-// /auth/register
-/*router.post("/register", (req: Request, res: Response) => {
-  const { username, password } = req.body;
-  if (typeof username !== "string" || typeof password !== "string") {
-    return res.status(400).send("Invalid input");
-  }
-
-  credentials.create(username, password)
-    .then((creds) => generateToken(creds.username))
-    .then((token) => res.status(201).send({ token }))
-    .catch((err) => res.status(409).send({ error: err.toString() }));
-});*/
-
 router.post("/register", (req: Request, res: Response) => {
   const { username, password } = req.body; // from form
 

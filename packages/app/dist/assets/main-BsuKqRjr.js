@@ -1,8 +1,8 @@
-import{i as S,O as _,x as a,a as h,r as b,V as x,b as j,d as w,f as I,n as C,h as O,c as d,_ as M,s as D}from"./reset.css-CrDZLBjt.js";/**
+import{i as S,O as _,x as a,a as h,r as b,V as x,b as O,d as w,f as j,n as I,h as C,c as d,_ as M,s as D}from"./reset.css-CrDZLBjt.js";/**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */const T=o=>(e,t)=>{t!==void 0?t.addInitializer(()=>{customElements.define(o,e)}):customElements.define(o,e)};var L=Object.defineProperty,z=(o,e,t,r)=>{for(var i=void 0,s=o.length-1,n;s>=0;s--)(n=o[s])&&(i=n(e,t,i)||i);return i&&L(e,t,i),i};const y=class y extends S{constructor(){super(...arguments),this._auth=new _(this,"app:auth"),this.loggedIn=!1}connectedCallback(){super.connectedCallback(),this._auth.observe(e=>{const{user:t}=e;t!=null&&t.authenticated?(this.loggedIn=!0,this.userid=t.username):(this.loggedIn=!1,this.userid=void 0)})}handleSignOut(){this.dispatchEvent(new CustomEvent("auth:message",{bubbles:!0,composed:!0,detail:["auth/signout"]})),location.assign("/login.html")}toggleDarkMode(e){const r=e.currentTarget.checked;document.body.dispatchEvent(new CustomEvent("darkmode:toggle",{bubbles:!0,detail:{enabled:r}}))}render(){return a`
+ */const T=o=>(e,t)=>{t!==void 0?t.addInitializer(()=>{customElements.define(o,e)}):customElements.define(o,e)};var L=Object.defineProperty,z=(o,e,t,i)=>{for(var r=void 0,s=o.length-1,n;s>=0;s--)(n=o[s])&&(r=n(e,t,r)||r);return r&&L(e,t,r),r};const y=class y extends S{constructor(){super(...arguments),this._auth=new _(this,"app:auth"),this.loggedIn=!1}connectedCallback(){super.connectedCallback(),this._auth.observe(e=>{const{user:t}=e;t!=null&&t.authenticated?(this.loggedIn=!0,this.userid=t.username):(this.loggedIn=!1,this.userid=void 0)})}handleSignOut(){this.dispatchEvent(new CustomEvent("auth:message",{bubbles:!0,composed:!0,detail:["auth/signout"]})),location.assign("/login.html")}toggleDarkMode(e){const i=e.currentTarget.checked;document.body.dispatchEvent(new CustomEvent("darkmode:toggle",{bubbles:!0,detail:{enabled:i}}))}render(){return a`
       <header class="main-header">
         <div class="left-section">
           ${this.loggedIn?a`<div class="hello-user">Hello, <strong>${this.userid}</strong></div>`:null}
@@ -178,7 +178,7 @@ import{i as S,O as _,x as a,a as h,r as b,V as x,b as j,d as w,f as I,n as C,h a
             </a>
           `)}
       </section>
-    `}};$.styles=[j,h`
+    `}};$.styles=[O,h`
       :host {
         display: block;
         padding: 1rem;
@@ -207,7 +207,7 @@ import{i as S,O as _,x as a,a as h,r as b,V as x,b as j,d as w,f as I,n as C,h a
         object-fit: cover;
         display: block;
       }
-    `];let g=$;var R=Object.defineProperty,P=(o,e,t,r)=>{for(var i=void 0,s=o.length-1,n;s>=0;s--)(n=o[s])&&(i=n(e,t,i)||i);return i&&R(e,t,i),i};const p=class p extends x{constructor(){super("app:model"),this._userid="",this._authObserver=new _(this,"app:auth")}get film(){return this.model.selectedFilm}get myReview(){var e,t;return(t=(e=this.film)==null?void 0:e.reviews)==null?void 0:t.find(r=>r.username===this._userid)}connectedCallback(){super.connectedCallback(),this._authObserver.observe(e=>{var t;(t=e==null?void 0:e.user)!=null&&t.authenticated&&(this._userid=e.user.username)}),this.filmId&&this.dispatchMessage(["film/select",{id:this.filmId}])}handleSubmit(e){if(!this._userid)return;console.log("user",this._userid);const t={username:this._userid,rating:Number(e.detail.rating),comment:e.detail.comment,date:new Date().toISOString()};this.dispatchMessage(["review/save",{filmId:this.filmId,review:t,onSuccess:()=>this.dispatchMessage(["film/select",{id:this.filmId}]),onFailure:r=>console.error("Review save failed",r)}])}render(){return this.film?a`
+    `];let g=$;var R=Object.defineProperty,P=(o,e,t,i)=>{for(var r=void 0,s=o.length-1,n;s>=0;s--)(n=o[s])&&(r=n(e,t,r)||r);return r&&R(e,t,r),r};const p=class p extends x{constructor(){super("app:model"),this._userid="",this._authObserver=new _(this,"app:auth")}get film(){return this.model.selectedFilm}get myReview(){var e,t;return(t=(e=this.film)==null?void 0:e.reviews)==null?void 0:t.find(i=>i.username===this._userid)}connectedCallback(){super.connectedCallback(),this._authObserver.observe(e=>{var t;(t=e==null?void 0:e.user)!=null&&t.authenticated&&(this._userid=e.user.username)}),this.filmId&&this.dispatchMessage(["film/select",{id:this.filmId}])}handleSubmit(e){if(!this._userid)return;console.log("user",this._userid);const t={username:this._userid,rating:Number(e.detail.rating),comment:e.detail.comment,date:new Date().toISOString()};this.dispatchMessage(["review/save",{filmId:this.filmId,review:t,onSuccess:()=>this.dispatchMessage(["film/select",{id:this.filmId}]),onFailure:i=>console.error("Review save failed",i)}])}render(){return this.film?a`
     <main class="page">
       <h2>${this.film.title}</h2>
       <section class="review-card">
@@ -248,7 +248,7 @@ import{i as S,O as _,x as a,a as h,r as b,V as x,b as j,d as w,f as I,n as C,h a
         </ul>
       </section>
     </main>
-    `:a`<p>Loading film...</p>`}};p.uses=w({"mu-form":I.Element}),p.styles=[j,h`
+    `:a`<p>Loading film...</p>`}};p.uses=w({"mu-form":j.Element}),p.styles=[O,h`
       .page {
         padding: 2rem;
         font-family: "Lato", sans-serif;
@@ -306,7 +306,7 @@ import{i as S,O as _,x as a,a as h,r as b,V as x,b as j,d as w,f as I,n as C,h a
         padding: 0;
       }
 
-    `];let u=p;P([C({attribute:"film-id"})],u.prototype,"filmId");P([b()],u.prototype,"_userid");var N=Object.defineProperty,U=(o,e,t,r)=>{for(var i=void 0,s=o.length-1,n;s>=0;s--)(n=o[s])&&(i=n(e,t,i)||i);return i&&N(e,t,i),i};const f=class f extends x{constructor(){super("app:model")}connectedCallback(){super.connectedCallback(),this.dispatchMessage(["profile/select",{userid:this.userid}])}get profile(){return this.model.profile}handleSubmit(e){this.dispatchMessage(["profile/save",{userid:this.userid,profile:e.detail,onSuccess:()=>O.dispatch(this,"history/navigate",{href:`/app/profile/${this.userid}`}),onFailure:t=>console.error("Save failed",t)}])}render(){var e,t,r;return a`
+    `];let u=p;P([I({attribute:"film-id"})],u.prototype,"filmId");P([b()],u.prototype,"_userid");var N=Object.defineProperty,U=(o,e,t,i)=>{for(var r=void 0,s=o.length-1,n;s>=0;s--)(n=o[s])&&(r=n(e,t,r)||r);return r&&N(e,t,r),r};const f=class f extends x{constructor(){super("app:model")}connectedCallback(){super.connectedCallback(),this.dispatchMessage(["profile/select",{userid:this.userid}])}get profile(){return this.model.profile}handleSubmit(e){this.dispatchMessage(["profile/save",{userid:this.userid,profile:e.detail,onSuccess:()=>C.dispatch(this,"history/navigate",{href:`/app/profile/${this.userid}`}),onFailure:t=>console.error("Save failed",t)}])}render(){var e,t,i;return a`
       <main class="page">
         <h2>Edit Profile</h2>
         <section class="profile-card">
@@ -327,13 +327,13 @@ import{i as S,O as _,x as a,a as h,r as b,V as x,b as j,d as w,f as I,n as C,h a
             </label>
 
             <label>State
-              <input name="state" .value=${((r=this.profile)==null?void 0:r.state)??""} />
+              <input name="state" .value=${((i=this.profile)==null?void 0:i.state)??""} />
             </label>
 
           </mu-form>
         </section>
       </main>
-    `}};f.uses=w({"mu-form":I.Element}),f.styles=h`
+    `}};f.uses=w({"mu-form":j.Element}),f.styles=h`
   .page {
     display: flex;
     flex-direction: column;
@@ -362,6 +362,7 @@ import{i as S,O as _,x as a,a as h,r as b,V as x,b as j,d as w,f as I,n as C,h a
   }
 
   mu-form {
+    font-family: "Outfit", sans-serif;
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
@@ -371,6 +372,7 @@ import{i as S,O as _,x as a,a as h,r as b,V as x,b as j,d as w,f as I,n as C,h a
   }
 
   mu-form label {
+    font-family: "Outfit", sans-serif;
     display: flex;
     flex-direction: column;
     font-size: 1.1rem;
@@ -381,6 +383,7 @@ import{i as S,O as _,x as a,a as h,r as b,V as x,b as j,d as w,f as I,n as C,h a
   }
 
   mu-form input {
+    font-family: "Outfit", sans-serif;
     margin-top: 0.5rem;
     padding: 0.8rem 1rem;
     border-radius: 8px;
@@ -396,6 +399,7 @@ import{i as S,O as _,x as a,a as h,r as b,V as x,b as j,d as w,f as I,n as C,h a
   }
 
   mu-form button[slot="submit"] {
+    font-family: "Outfit", sans-serif;
     background-color: var(--color-accent);
     color: var(--color-header-background);
     font-weight: bold;
@@ -417,7 +421,7 @@ import{i as S,O as _,x as a,a as h,r as b,V as x,b as j,d as w,f as I,n as C,h a
       padding: 1.5rem;
     }
   }
-`;let m=f;U([C({attribute:"userid"})],m.prototype,"userid");function k(o,e,t){switch(o[0]){case"film/select":return fetch(`/api/films/${o[1].id}`,{headers:d.headers(t)}).then(r=>r.json()).then(r=>e(i=>({...i,selectedFilm:r})));case"films/load":return fetch("/api/films",{headers:d.headers(t)}).then(r=>r.json()).then(r=>e(i=>({...i,films:r})));case"review/save":{const{filmId:r,review:i,onSuccess:s,onFailure:n}=o[1];return fetch(`/api/films/${r}/review`,{method:"PUT",headers:{"Content-Type":"application/json",...d.headers(t)},body:JSON.stringify(i)}).then(l=>{if(!l.ok)throw new Error("Failed to save review");return l.json()}).then(()=>fetch(`/api/films/${r}`,{headers:d.headers(t)})).then(l=>l.json()).then(l=>{e(F=>({...F,selectedFilm:l})),s&&s()}).catch(l=>{n&&n(l)})}case"profile/select":return fetch(`/api/profile/${o[1].userid}`,{headers:d.headers(t)}).then(r=>r.json()).then(r=>e(i=>({...i,profile:r})));case"profile/save":return fetch(`/api/profile/${o[1].userid}`,{method:"PUT",headers:{"Content-Type":"application/json",...d.headers(t)},body:JSON.stringify(o[1].profile)}).then(r=>r.json()).then(r=>{e(i=>({...i,profile:r})),o[1].onSuccess&&o[1].onSuccess()}).catch(r=>{o[1].onFailure&&o[1].onFailure(r)});case"reviews/load":return fetch(`/api/users/${o[1].userid}/reviews`,{headers:d.headers(t)}).then(r=>r.json()).then(r=>e(i=>({...i,myReviews:r})));default:throw new Error(`Unhandled message: ${o[0]}`)}}const q={};var A=Object.getOwnPropertyDescriptor,G=(o,e,t,r)=>{for(var i=r>1?void 0:r?A(e,t):e,s=o.length-1,n;s>=0;s--)(n=o[s])&&(i=n(i)||i);return i};let v=class extends S{render(){return a`
+`;let m=f;U([I({attribute:"userid"})],m.prototype,"userid");function k(o,e,t){switch(o[0]){case"film/select":return fetch(`/api/films/${o[1].id}`,{headers:d.headers(t)}).then(i=>i.json()).then(i=>e(r=>({...r,selectedFilm:i})));case"films/load":return fetch("/api/films",{headers:d.headers(t)}).then(i=>i.json()).then(i=>e(r=>({...r,films:i})));case"review/save":{const{filmId:i,review:r,onSuccess:s,onFailure:n}=o[1];return fetch(`/api/films/${i}/review`,{method:"PUT",headers:{"Content-Type":"application/json",...d.headers(t)},body:JSON.stringify(r)}).then(l=>{if(!l.ok)throw new Error("Failed to save review");return l.json()}).then(()=>fetch(`/api/films/${i}`,{headers:d.headers(t)})).then(l=>l.json()).then(l=>{e(F=>({...F,selectedFilm:l})),s&&s()}).catch(l=>{n&&n(l)})}case"profile/select":return fetch(`/api/profile/${o[1].userid}`,{headers:d.headers(t)}).then(i=>i.json()).then(i=>e(r=>({...r,profile:i})));case"profile/save":return fetch(`/api/profile/${o[1].userid}`,{method:"PUT",headers:{"Content-Type":"application/json",...d.headers(t)},body:JSON.stringify(o[1].profile)}).then(i=>i.json()).then(i=>{e(r=>({...r,profile:i})),o[1].onSuccess&&o[1].onSuccess()}).catch(i=>{o[1].onFailure&&o[1].onFailure(i)});case"reviews/load":return fetch(`/api/users/${o[1].userid}/reviews`,{headers:d.headers(t)}).then(i=>i.json()).then(i=>e(r=>({...r,myReviews:i})));default:throw new Error(`Unhandled message: ${o[0]}`)}}const q={};var A=Object.getOwnPropertyDescriptor,G=(o,e,t,i)=>{for(var r=i>1?void 0:i?A(e,t):e,s=o.length-1,n;s>=0;s--)(n=o[s])&&(r=n(r)||r);return r};let v=class extends S{render(){return a`
       <a @click=${()=>location.assign("/login.html")}>Sign In</a>
     `}};v.styles=h`
     a {
@@ -426,7 +430,7 @@ import{i as S,O as _,x as a,a as h,r as b,V as x,b as j,d as w,f as I,n as C,h a
       cursor: pointer;
       text-decoration: underline;
     }
-  `;v=G([T("sign-in-link")],v);w({"mu-history":O.Provider,"mu-auth":d.Provider,"mu-store":class extends D.Provider{constructor(){console.log("typeof update:",typeof k),super(k,q,"app:auth")}},"mu-switch":class extends M.Element{constructor(){super([{path:"/app",view:()=>a`<home-view></home-view>`},{path:"/app/film/:id/rate",view:e=>a`<rating-view film-id=${e.id} userid=${e.userid}></rating-view>`},{path:"/app/profile/:userid/edit",view:e=>a`
+  `;v=G([T("sign-in-link")],v);w({"mu-history":C.Provider,"mu-auth":d.Provider,"mu-store":class extends D.Provider{constructor(){console.log("typeof update:",typeof k),super(k,q,"app:auth")}},"mu-switch":class extends M.Element{constructor(){super([{path:"/app",view:()=>a`<home-view></home-view>`},{path:"/app/film/:id/rate",view:e=>a`<rating-view film-id=${e.id} userid=${e.userid}></rating-view>`},{path:"/app/profile/:userid/edit",view:e=>a`
               <profile-view userid=${e.userid}></profile-view>
             `},{path:"/app/profile/:userid",view:e=>a`
               <profile-view userid=${e.userid}></profile-view>`},{path:"/",redirect:"/app"}],"app:history","app:auth")}},"site-header":c,"home-view":g,"rating-view":u,"profile-view":m});
