@@ -17,30 +17,41 @@ export class RatingViewElement extends View<Model, Msg> {
   @property({ attribute: "film-id" }) filmId?: string;
   @state()
   private _userid: string = "";
+  @state()
+  private _selectedFilm?: Film;
+
 
   private _authObserver = new Observer<Auth.Model>(this, "app:auth");
 
+  
   get film() {
-    return this.model.selectedFilm;
-  }
+      return this._selectedFilm;
+    }
+    
 
   get myReview() {
     return this.film?.reviews?.find((r) => r.username === this._userid);
   }
 
   connectedCallback() {
-    super.connectedCallback();
-
-    this._authObserver.observe((auth) => {
-      if (auth?.user?.authenticated) {
-        this._userid = auth.user.username;
+      super.connectedCallback();
+    
+      this._authObserver.observe((auth) => {
+        if (auth?.user?.authenticated) {
+          this._userid = auth.user.username;
+        }
+      });
+    
+      if (this.filmId) {
+        this.dispatchMessage(["film/select", {
+          id: this.filmId,
+          onSuccess: (film) => {
+            this._selectedFilm = film;
+          }
+        }]);
       }
-    });
-
-    if (this.filmId) {
-      this.dispatchMessage(["film/select", { id: this.filmId }]);
     }
-  }
+    
 
   handleSubmit(e: Form.SubmitEvent<{ rating: number; comment: string }>) {
     if (!this._userid) return;
@@ -59,7 +70,7 @@ export class RatingViewElement extends View<Model, Msg> {
       {
         filmId: this.filmId!,
         review,
-        onSuccess: () => this.dispatchMessage(["film/select", { id: this.filmId! }]),
+        onSuccess: () => this.dispatchMessage(["film/select", { id: this.filmId!, onSuccess: (film) => (this._selectedFilm = film) }]),
         onFailure: (err) => console.error("Review save failed", err)
       }
     ]);
@@ -79,7 +90,7 @@ render() {
         </ul>
 
         <h3>Your Rating:</h3>
-        <mu-form .init=${this.myReview} @mu-form:submit=${this.handleSubmit}>
+        <mu-form .init=${this.myReview} @mu-form:submit=${this.handleSubmit} key=${this.film?.id}/>
           <label>
             <select name="rating" required>
               <option value="">Select</option>

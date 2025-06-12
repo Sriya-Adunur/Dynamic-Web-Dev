@@ -8,13 +8,25 @@ export default function update(
   user: Auth.User
 ) {
   switch (message[0]) {
-    case "film/select":
-      return fetch(`/api/films/${message[1].id}`, {
-        headers: Auth.headers(user)
-      })
-        .then((res) => res.json())
-        .then((film) => apply((model) => ({ ...model, selectedFilm: film })));
-
+    case "film/select": {
+          const { id, onSuccess } = message[1];
+        
+          return fetch(`/api/films/${id}`, {
+            headers: Auth.headers(user)
+          })
+            .then((res) => res.json())
+            .then((film) => {
+              if (typeof onSuccess === "function") {
+                onSuccess(film);
+              }
+        
+              return apply((model) => ({
+                ...model,
+                selectedFilm: film
+              }));
+            });
+        }
+        
     case "films/load":
       return fetch("/api/films", {
         headers: Auth.headers(user)

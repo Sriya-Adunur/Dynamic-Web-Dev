@@ -1,11 +1,11 @@
-import{i as S,O as _,x as a,a as h,r as b,V as x,b as O,d as w,f as j,n as I,h as C,c as d,_ as M,s as D}from"./reset.css-CrDZLBjt.js";/**
+import{i as _,O,x as n,a as h,r as g,V as x,b as j,d as w,f as I,n as C,h as z,c,_ as M,s as D}from"./reset.css-CrDZLBjt.js";/**
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */const T=o=>(e,t)=>{t!==void 0?t.addInitializer(()=>{customElements.define(o,e)}):customElements.define(o,e)};var L=Object.defineProperty,z=(o,e,t,i)=>{for(var r=void 0,s=o.length-1,n;s>=0;s--)(n=o[s])&&(r=n(e,t,r)||r);return r&&L(e,t,r),r};const y=class y extends S{constructor(){super(...arguments),this._auth=new _(this,"app:auth"),this.loggedIn=!1}connectedCallback(){super.connectedCallback(),this._auth.observe(e=>{const{user:t}=e;t!=null&&t.authenticated?(this.loggedIn=!0,this.userid=t.username):(this.loggedIn=!1,this.userid=void 0)})}handleSignOut(){this.dispatchEvent(new CustomEvent("auth:message",{bubbles:!0,composed:!0,detail:["auth/signout"]})),location.assign("/login.html")}toggleDarkMode(e){const i=e.currentTarget.checked;document.body.dispatchEvent(new CustomEvent("darkmode:toggle",{bubbles:!0,detail:{enabled:i}}))}render(){return a`
+ */const T=o=>(e,t)=>{t!==void 0?t.addInitializer(()=>{customElements.define(o,e)}):customElements.define(o,e)};var L=Object.defineProperty,P=(o,e,t,i)=>{for(var r=void 0,s=o.length-1,a;s>=0;s--)(a=o[s])&&(r=a(e,t,r)||r);return r&&L(e,t,r),r};const $=class $ extends _{constructor(){super(...arguments),this._auth=new O(this,"app:auth"),this.loggedIn=!1}connectedCallback(){super.connectedCallback(),this._auth.observe(e=>{const{user:t}=e;t!=null&&t.authenticated?(this.loggedIn=!0,this.userid=t.username):(this.loggedIn=!1,this.userid=void 0)})}handleSignOut(){this.dispatchEvent(new CustomEvent("auth:message",{bubbles:!0,composed:!0,detail:["auth/signout"]})),location.assign("/login.html")}toggleDarkMode(e){const i=e.currentTarget.checked;document.body.dispatchEvent(new CustomEvent("darkmode:toggle",{bubbles:!0,detail:{enabled:i}}))}render(){return n`
       <header class="main-header">
         <div class="left-section">
-          ${this.loggedIn?a`<div class="hello-user">Hello, <strong>${this.userid}</strong></div>`:null}
+          ${this.loggedIn?n`<div class="hello-user">Hello, <strong>${this.userid}</strong></div>`:null}
           <div class="logo">
             <a href="/app" class="logo-link">
               <h1>
@@ -32,7 +32,7 @@ import{i as S,O as _,x as a,a as h,r as b,V as x,b as O,d as w,f as j,n as I,h a
           </nav>
 
           <div class="user-controls">
-            ${this.loggedIn?a`<button @click=${this.handleSignOut}>Sign Out</button>`:a`<a @click=${()=>location.assign("/login.html")}>Sign In</a>`}
+            ${this.loggedIn?n`<button @click=${this.handleSignOut}>Sign Out</button>`:n`<a @click=${()=>location.assign("/login.html")}>Sign In</a>`}
 
             <label class="darkmode">
               <input
@@ -45,7 +45,7 @@ import{i as S,O as _,x as a,a as h,r as b,V as x,b as O,d as w,f as j,n as I,h a
           </div>
         </div>
       </header>
-    `}};y.styles=h`
+    `}};$.styles=h`
     .main-header {
       display: flex;
       justify-content: space-between;
@@ -170,15 +170,15 @@ import{i as S,O as _,x as a,a as h,r as b,V as x,b as O,d as w,f as j,n as I,h a
         align-items: flex-start;
       }
     }
-  `;let c=y;z([b()],c.prototype,"loggedIn");z([b()],c.prototype,"userid");const $=class $ extends x{constructor(){super("app:model")}connectedCallback(){super.connectedCallback(),this.dispatchMessage(["films/load",{}])}get films(){return this.model.films??[]}render(){return a`
+  `;let u=$;P([g()],u.prototype,"loggedIn");P([g()],u.prototype,"userid");const k=class k extends x{constructor(){super("app:model")}connectedCallback(){super.connectedCallback(),this.dispatchMessage(["films/load",{}])}get films(){return this.model.films??[]}render(){return n`
       <section class="movie-list">
-        ${this.films.map(e=>a`
+        ${this.films.map(e=>n`
             <a href="/app/film/${e._id}/rate" class="movie-tile">
               <img src=${e.filmImage} alt=${e.title} />
             </a>
           `)}
       </section>
-    `}};$.styles=[O,h`
+    `}};k.styles=[j,h`
       :host {
         display: block;
         padding: 1rem;
@@ -207,18 +207,18 @@ import{i as S,O as _,x as a,a as h,r as b,V as x,b as O,d as w,f as j,n as I,h a
         object-fit: cover;
         display: block;
       }
-    `];let g=$;var R=Object.defineProperty,P=(o,e,t,i)=>{for(var r=void 0,s=o.length-1,n;s>=0;s--)(n=o[s])&&(r=n(e,t,r)||r);return r&&R(e,t,r),r};const p=class p extends x{constructor(){super("app:model"),this._userid="",this._authObserver=new _(this,"app:auth")}get film(){return this.model.selectedFilm}get myReview(){var e,t;return(t=(e=this.film)==null?void 0:e.reviews)==null?void 0:t.find(i=>i.username===this._userid)}connectedCallback(){super.connectedCallback(),this._authObserver.observe(e=>{var t;(t=e==null?void 0:e.user)!=null&&t.authenticated&&(this._userid=e.user.username)}),this.filmId&&this.dispatchMessage(["film/select",{id:this.filmId}])}handleSubmit(e){if(!this._userid)return;console.log("user",this._userid);const t={username:this._userid,rating:Number(e.detail.rating),comment:e.detail.comment,date:new Date().toISOString()};this.dispatchMessage(["review/save",{filmId:this.filmId,review:t,onSuccess:()=>this.dispatchMessage(["film/select",{id:this.filmId}]),onFailure:i=>console.error("Review save failed",i)}])}render(){return this.film?a`
+    `];let v=k;var R=Object.defineProperty,y=(o,e,t,i)=>{for(var r=void 0,s=o.length-1,a;s>=0;s--)(a=o[s])&&(r=a(e,t,r)||r);return r&&R(e,t,r),r};const p=class p extends x{constructor(){super("app:model"),this._userid="",this._authObserver=new O(this,"app:auth")}get film(){return this._selectedFilm}get myReview(){var e,t;return(t=(e=this.film)==null?void 0:e.reviews)==null?void 0:t.find(i=>i.username===this._userid)}connectedCallback(){super.connectedCallback(),this._authObserver.observe(e=>{var t;(t=e==null?void 0:e.user)!=null&&t.authenticated&&(this._userid=e.user.username)}),this.filmId&&this.dispatchMessage(["film/select",{id:this.filmId,onSuccess:e=>{this._selectedFilm=e}}])}handleSubmit(e){if(!this._userid)return;console.log("user",this._userid);const t={username:this._userid,rating:Number(e.detail.rating),comment:e.detail.comment,date:new Date().toISOString()};this.dispatchMessage(["review/save",{filmId:this.filmId,review:t,onSuccess:()=>this.dispatchMessage(["film/select",{id:this.filmId,onSuccess:i=>this._selectedFilm=i}]),onFailure:i=>console.error("Review save failed",i)}])}render(){var e;return this.film?n`
     <main class="page">
       <h2>${this.film.title}</h2>
       <section class="review-card">
         <p><strong>Plot:</strong> ${this.film.plot}</p>
         <p><strong>Genres:</strong> ${this.film.genres.join(", ")}</p>
         <ul>
-          <strong>Cast:</strong>${this.film.cast.map(e=>a`<li>${e.name} - ${e.role}</li>`)}
+          <strong>Cast:</strong>${this.film.cast.map(t=>n`<li>${t.name} - ${t.role}</li>`)}
         </ul>
 
         <h3>Your Rating:</h3>
-        <mu-form .init=${this.myReview} @mu-form:submit=${this.handleSubmit}>
+        <mu-form .init=${this.myReview} @mu-form:submit=${this.handleSubmit} key=${(e=this.film)==null?void 0:e.id}/>
           <label>
             <select name="rating" required>
               <option value="">Select</option>
@@ -239,16 +239,16 @@ import{i as S,O as _,x as a,a as h,r as b,V as x,b as O,d as w,f as j,n as I,h a
 
         <h3>Reviews</h3>
         <ul>
-          ${this.film.reviews.map(e=>a`
+          ${this.film.reviews.map(t=>n`
               <li>
-                <strong>${e.username}</strong> rated ${e.rating}/5<br />
-                ${e.comment}
+                <strong>${t.username}</strong> rated ${t.rating}/5<br />
+                ${t.comment}
               </li>
             `)}
         </ul>
       </section>
     </main>
-    `:a`<p>Loading film...</p>`}};p.uses=w({"mu-form":j.Element}),p.styles=[O,h`
+    `:n`<p>Loading film...</p>`}};p.uses=w({"mu-form":I.Element}),p.styles=[j,h`
       .page {
         padding: 2rem;
         font-family: "Lato", sans-serif;
@@ -306,7 +306,7 @@ import{i as S,O as _,x as a,a as h,r as b,V as x,b as O,d as w,f as j,n as I,h a
         padding: 0;
       }
 
-    `];let u=p;P([I({attribute:"film-id"})],u.prototype,"filmId");P([b()],u.prototype,"_userid");var N=Object.defineProperty,U=(o,e,t,i)=>{for(var r=void 0,s=o.length-1,n;s>=0;s--)(n=o[s])&&(r=n(e,t,r)||r);return r&&N(e,t,r),r};const f=class f extends x{constructor(){super("app:model")}connectedCallback(){super.connectedCallback(),this.dispatchMessage(["profile/select",{userid:this.userid}])}get profile(){return this.model.profile}handleSubmit(e){this.dispatchMessage(["profile/save",{userid:this.userid,profile:e.detail,onSuccess:()=>C.dispatch(this,"history/navigate",{href:`/app/profile/${this.userid}`}),onFailure:t=>console.error("Save failed",t)}])}render(){var e,t,i;return a`
+    `];let d=p;y([C({attribute:"film-id"})],d.prototype,"filmId");y([g()],d.prototype,"_userid");y([g()],d.prototype,"_selectedFilm");var N=Object.defineProperty,U=(o,e,t,i)=>{for(var r=void 0,s=o.length-1,a;s>=0;s--)(a=o[s])&&(r=a(e,t,r)||r);return r&&N(e,t,r),r};const f=class f extends x{constructor(){super("app:model")}connectedCallback(){super.connectedCallback(),this.dispatchMessage(["profile/select",{userid:this.userid}])}get profile(){return this.model.profile}handleSubmit(e){this.dispatchMessage(["profile/save",{userid:this.userid,profile:e.detail,onSuccess:()=>z.dispatch(this,"history/navigate",{href:`/app/profile/${this.userid}`}),onFailure:t=>console.error("Save failed",t)}])}render(){var e,t,i;return n`
       <main class="page">
         <h2>Edit Profile</h2>
         <section class="profile-card">
@@ -333,7 +333,7 @@ import{i as S,O as _,x as a,a as h,r as b,V as x,b as O,d as w,f as j,n as I,h a
           </mu-form>
         </section>
       </main>
-    `}};f.uses=w({"mu-form":j.Element}),f.styles=h`
+    `}};f.uses=w({"mu-form":I.Element}),f.styles=h`
   .page {
     display: flex;
     flex-direction: column;
@@ -421,16 +421,16 @@ import{i as S,O as _,x as a,a as h,r as b,V as x,b as O,d as w,f as j,n as I,h a
       padding: 1.5rem;
     }
   }
-`;let m=f;U([I({attribute:"userid"})],m.prototype,"userid");function k(o,e,t){switch(o[0]){case"film/select":return fetch(`/api/films/${o[1].id}`,{headers:d.headers(t)}).then(i=>i.json()).then(i=>e(r=>({...r,selectedFilm:i})));case"films/load":return fetch("/api/films",{headers:d.headers(t)}).then(i=>i.json()).then(i=>e(r=>({...r,films:i})));case"review/save":{const{filmId:i,review:r,onSuccess:s,onFailure:n}=o[1];return fetch(`/api/films/${i}/review`,{method:"PUT",headers:{"Content-Type":"application/json",...d.headers(t)},body:JSON.stringify(r)}).then(l=>{if(!l.ok)throw new Error("Failed to save review");return l.json()}).then(()=>fetch(`/api/films/${i}`,{headers:d.headers(t)})).then(l=>l.json()).then(l=>{e(F=>({...F,selectedFilm:l})),s&&s()}).catch(l=>{n&&n(l)})}case"profile/select":return fetch(`/api/profile/${o[1].userid}`,{headers:d.headers(t)}).then(i=>i.json()).then(i=>e(r=>({...r,profile:i})));case"profile/save":return fetch(`/api/profile/${o[1].userid}`,{method:"PUT",headers:{"Content-Type":"application/json",...d.headers(t)},body:JSON.stringify(o[1].profile)}).then(i=>i.json()).then(i=>{e(r=>({...r,profile:i})),o[1].onSuccess&&o[1].onSuccess()}).catch(i=>{o[1].onFailure&&o[1].onFailure(i)});case"reviews/load":return fetch(`/api/users/${o[1].userid}/reviews`,{headers:d.headers(t)}).then(i=>i.json()).then(i=>e(r=>({...r,myReviews:i})));default:throw new Error(`Unhandled message: ${o[0]}`)}}const q={};var A=Object.getOwnPropertyDescriptor,G=(o,e,t,i)=>{for(var r=i>1?void 0:i?A(e,t):e,s=o.length-1,n;s>=0;s--)(n=o[s])&&(r=n(r)||r);return r};let v=class extends S{render(){return a`
+`;let m=f;U([C({attribute:"userid"})],m.prototype,"userid");function S(o,e,t){switch(o[0]){case"film/select":{const{id:i,onSuccess:r}=o[1];return fetch(`/api/films/${i}`,{headers:c.headers(t)}).then(s=>s.json()).then(s=>(typeof r=="function"&&r(s),e(a=>({...a,selectedFilm:s}))))}case"films/load":return fetch("/api/films",{headers:c.headers(t)}).then(i=>i.json()).then(i=>e(r=>({...r,films:i})));case"review/save":{const{filmId:i,review:r,onSuccess:s,onFailure:a}=o[1];return fetch(`/api/films/${i}/review`,{method:"PUT",headers:{"Content-Type":"application/json",...c.headers(t)},body:JSON.stringify(r)}).then(l=>{if(!l.ok)throw new Error("Failed to save review");return l.json()}).then(()=>fetch(`/api/films/${i}`,{headers:c.headers(t)})).then(l=>l.json()).then(l=>{e(F=>({...F,selectedFilm:l})),s&&s()}).catch(l=>{a&&a(l)})}case"profile/select":return fetch(`/api/profile/${o[1].userid}`,{headers:c.headers(t)}).then(i=>i.json()).then(i=>e(r=>({...r,profile:i})));case"profile/save":return fetch(`/api/profile/${o[1].userid}`,{method:"PUT",headers:{"Content-Type":"application/json",...c.headers(t)},body:JSON.stringify(o[1].profile)}).then(i=>i.json()).then(i=>{e(r=>({...r,profile:i})),o[1].onSuccess&&o[1].onSuccess()}).catch(i=>{o[1].onFailure&&o[1].onFailure(i)});case"reviews/load":return fetch(`/api/users/${o[1].userid}/reviews`,{headers:c.headers(t)}).then(i=>i.json()).then(i=>e(r=>({...r,myReviews:i})));default:throw new Error(`Unhandled message: ${o[0]}`)}}const q={};var A=Object.getOwnPropertyDescriptor,G=(o,e,t,i)=>{for(var r=i>1?void 0:i?A(e,t):e,s=o.length-1,a;s>=0;s--)(a=o[s])&&(r=a(r)||r);return r};let b=class extends _{render(){return n`
       <a @click=${()=>location.assign("/login.html")}>Sign In</a>
-    `}};v.styles=h`
+    `}};b.styles=h`
     a {
       font-size: 1.1rem;
       color: var(--color-larger-text);
       cursor: pointer;
       text-decoration: underline;
     }
-  `;v=G([T("sign-in-link")],v);w({"mu-history":C.Provider,"mu-auth":d.Provider,"mu-store":class extends D.Provider{constructor(){console.log("typeof update:",typeof k),super(k,q,"app:auth")}},"mu-switch":class extends M.Element{constructor(){super([{path:"/app",view:()=>a`<home-view></home-view>`},{path:"/app/film/:id/rate",view:e=>a`<rating-view film-id=${e.id} userid=${e.userid}></rating-view>`},{path:"/app/profile/:userid/edit",view:e=>a`
+  `;b=G([T("sign-in-link")],b);w({"mu-history":z.Provider,"mu-auth":c.Provider,"mu-store":class extends D.Provider{constructor(){console.log("typeof update:",typeof S),super(S,q,"app:auth")}},"mu-switch":class extends M.Element{constructor(){super([{path:"/app",view:()=>n`<home-view></home-view>`},{path:"/app/film/:id/rate",view:e=>n`<rating-view film-id=${e.id} userid=${e.userid}></rating-view>`},{path:"/app/profile/:userid/edit",view:e=>n`
               <profile-view userid=${e.userid}></profile-view>
-            `},{path:"/app/profile/:userid",view:e=>a`
-              <profile-view userid=${e.userid}></profile-view>`},{path:"/",redirect:"/app"}],"app:history","app:auth")}},"site-header":c,"home-view":g,"rating-view":u,"profile-view":m});
+            `},{path:"/app/profile/:userid",view:e=>n`
+              <profile-view userid=${e.userid}></profile-view>`},{path:"/",redirect:"/app"}],"app:history","app:auth")}},"site-header":u,"home-view":v,"rating-view":d,"profile-view":m});
